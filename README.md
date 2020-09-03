@@ -22,3 +22,12 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+***Team Members***
+
+Amol Gautam (agautam6)
+
+Palash Gupta (pgupta25)
+
+Sneha Kumar (skumar32)
