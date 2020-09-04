@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :teachers
+  resources :courses
   resources :students
   get 'access/index'
   get 'access/login'
