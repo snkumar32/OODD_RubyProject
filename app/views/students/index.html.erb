@@ -1,17 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Students</h1>
+<h1>Listing Students</h1>
 
 <table>
   <thead>
     <tr>
-      <th colspan="3"></th>
-    </tr>
+      <th>Name</th>
+      <th>Major</th>
+      <th></th>
+      <th></th>
   </thead>
 
   <tbody>
     <% @students.each do |student| %>
       <tr>
+        <td><%= student.name %></td>
+        <td><%= student.major %></td>
         <td><%= link_to 'Show', student %></td>
         <td><%= link_to 'Edit', edit_student_path(student) %></td>
         <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>

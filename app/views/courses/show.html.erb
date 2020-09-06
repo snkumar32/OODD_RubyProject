@@ -1,4 +1,25 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <b>Name:</b>
+  <%= @course.name %>
+</p>
+<p>
+  <b>Number:</b>
+  <%= @course.number %>
+</p>
+<p>
+  <b>Discipline:</b>
+  <%= @course.discipline %>
+</p>
+<p>
+  <b>Area:</b>
+  <%= @course.area %>
+</p>
+<p>
+  <b>Price:</b>
+  <%= @course.price %>
+</p>
+
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>

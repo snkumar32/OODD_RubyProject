@@ -1,16 +1,27 @@
-<%= form_with(model: course, local: true) do |form| %>
-  <% if course.errors.any? %>
+<%= form_for(@course) do |form| %>
+  <% if @course.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
 
       <ul>
-        <% course.errors.full_messages.each do |message| %>
+        <% @course.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= form.label :name %><br />
+    <%= form.text_field :name %>
+    <%= form.label :number %><br />
+    <%= form.number_field :number %>
+    <%= form.label :discipline %><br />
+    <%= form.text_field :discipline %>
+    <%= form.label :area %><br />
+    <%= form.text_field :area %>
+    <%= form.label :price %><br />
+    <%= form.text_field :price %>
+  </div>
   <div class="actions">
     <%= form.submit %>
   </div>
