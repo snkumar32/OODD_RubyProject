@@ -1,3 +1,4 @@
-<h1>Welcome</h1>
-<%= button_to "Login", '/login', method: :get%>
-<%= button_to "Sign Up", '/users/new', method: :get%>
+<h1>>New Student</h1>
+<%= render 'form', student: @student %>
+
+<%= link_to 'Back', students_path %>

@@ -1,17 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Courses</h1>
+<h1> Listing Courses</h1>
 
 <table>
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Number</th>
+    <th>Discipline</th>
+    <th></th>
+    <th></th>
   </thead>
 
   <tbody>
     <% @courses.each do |course| %>
       <tr>
+        <td><%= course.name %></td>
+        <td><%= course.number %></td>
+        <td><%= course.discipline %></td>
         <td><%= link_to 'Show', course %></td>
         <td><%= link_to 'Edit', edit_course_path(course) %></td>
         <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>

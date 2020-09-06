@@ -1,30 +1,52 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  #before_action :set_course, only: [:show, :edit, :update, :destroy]
+
+  def courses_params
+    params.require(:course).permit(:name, :number, :discipline, :area, :price)
+  end
+
+  def current_course
+    Course.find_by(params[:id])
+  end
 
   # GET /courses
   # GET /courses.json
   def index
     @courses = Course.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @courses}
+    end
   end
 
   # GET /courses/1
   # GET /courses/1.json
   def show
+    @course = Course.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @student }
+    end
   end
 
   # GET /courses/new
   def new
     @course = Course.new
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @course }
+    end
   end
 
   # GET /courses/1/edit
   def edit
+    @course = Course.find(params[:id])
   end
 
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params)
+    @course = Course.new(courses_params)
 
     respond_to do |format|
       if @course.save
@@ -40,8 +62,9 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
+    @course = Course.find(params[:id])
     respond_to do |format|
-      if @course.update(course_params)
+      if @course.update(courses_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { render :show, status: :ok, location: @course }
       else
@@ -54,6 +77,7 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
+    @course = Course.find(params[:id])
     @course.destroy
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
@@ -61,14 +85,5 @@ class CoursesController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_course
-      @course = Course.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def course_params
-      params.fetch(:course, {})
-    end
 end
