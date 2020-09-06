@@ -1,5 +1,31 @@
-<h1>Welcome</h1>
-<% if logged_in? %>
-    <h1>You are Logged In, <%= current_user.username %></h1>
-<%end%>
-<%= button_to "Logout", '/login', method: :get%>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", '/login', method: :get, :class => "btn btn-lg btn-dark" %><span class="glyphicon glyphicon-log-in"></span>
+    </div>
+  </div>
+</nav>
+<div class = "container">
+  <h1 class="h3 mb-3 font-weight-normal">Welcome</h1><br>
+  <% if logged_in? %>
+      <h1 class="h3 mb-3 font-weight-normal">You are Logged In, <%= current_user.username %></h1>
+  <%end%>
+
+  <h1>Admin Operations</h1>
+
+  <h1 class="h3 mb-3 font-weight-normal">Teacher</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </table>
+</div>
