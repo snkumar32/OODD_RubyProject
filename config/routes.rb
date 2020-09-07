@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :teachers
   resources :students
   resources :courses
+  resources :view_courses
 end
