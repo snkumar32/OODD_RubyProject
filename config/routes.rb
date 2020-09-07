@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :admins
   resources :students
   resources :courses
+  resources :view_courses
 end
