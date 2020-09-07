@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admins/adminLogin'
   resources :users, only: [:new, :create]
 
   get 'login', to: 'sessions#new'
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
   get 'authorized', to: 'sessions#page_requires_login'
   resources :teachers
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :teachers
+  resources :admins
   resources :students
   resources :courses
   resources :view_courses
