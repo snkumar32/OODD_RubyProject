@@ -3,4 +3,6 @@ class PagesController < ApplicationController
   end
   def landingPage
   end
+  def teacherLandingPage
+  end
 end

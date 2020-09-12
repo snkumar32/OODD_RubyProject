@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   resources :view_courses
   # ---------------> remember not to put pages controller as resources <-----------------
   get 'pages/landingPage'
+  get 'pages/teacherLandingPage'
   root to: "pages#show"
  end
