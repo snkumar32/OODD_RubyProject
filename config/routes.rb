@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-  get 'admins/adminLogin'
-  resources :users, only: [:new, :create]
-
-  get 'login', to: 'sessions#new'
-  post 'login', to: 'sessions#create'
-  get 'welcome', to: 'sessions#welcome'
-  get 'authorized', to: 'sessions#page_requires_login'
+  devise_for :users, :controllers => {:registrations => "registrations"}
+  get 'teachers_login/show'
+  #get 'admins/adminLogin'
   resources :teachers
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :admins
   resources :students
   resources :courses
   resources :view_courses
-end
+  # ---------------> remember not to put pages controller as resources <-----------------
+  get 'pages/landingPage'
+  root to: "pages#show"
+ end
