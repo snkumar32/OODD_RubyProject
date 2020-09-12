@@ -1,5 +1,5 @@
 <html>
-  <title>Welcome admin</title>
+  <head></head>
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -22,27 +22,30 @@
     </div>
     <div class="container">
       <div class="page-header">
-        <h1>Operations you want to perform</h1>
+        <h1>Available Courses</h1>
       </div>
     </div>
     <div class="container">
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>Manage Teachers</th>
-          <th>Manage Students</th>
-          <th>Manage Courses</th>
+          <th>Courses</th>
+          <th></th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><%= link_to "Manage", '/teachers', :class => "btn btn-lg btn-info btn-sm" %></td>
-            <td><%= link_to "Manage", '/students', :class => "btn btn-lg btn-info btn-sm" %></td>
-            <td><%= link_to "Manage", '/courses', :class => "btn btn-lg btn-info btn-sm" %></td>
-          </tr>
+        <tr>
+          <td><%= link_to "Register", '/pagelocation', :class => "btn btn-lg btn-info btn-sm" %></td>
+          <td></td>
+          <td><%= link_to "Manage", '/courses', :class => "btn btn-lg btn-info btn-sm" %></td>
+        </tr>
         </tbody>
       </table>
     </div>
+    <% if Teacher.exists?(name: current_user.username)
+         teacher_id = Teacher.find_by(name: current_user.username)
+    %>
+    <%= link_to "View Courses", view_course_path(id: teacher_id.id), :class => "btn btn-lg btn-info" %><%end%>
   </body>
 </html>
-

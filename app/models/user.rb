@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-    has_secure_password
-    validates :username, uniqueness: true, presence: true, on: :create
-    validates :username, uniqueness: true, presence: true, on: :update
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 end
