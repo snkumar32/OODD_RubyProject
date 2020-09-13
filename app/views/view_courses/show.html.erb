@@ -15,7 +15,11 @@
     <tr>
       <td><%= course.name %></td>
       <td><%= course.discipline %></td>
-      <td><%=button_to 'register', view_course_path(params: {'teacherid' => @teacher_id, 'courseid' => @course_id })%></td>
+      <td><%= @teacher_id%></td>
+      <td><%= @course_id %></td>
+      <td><%= button_to '+', {:controller => "view_courses", :action => "create", :teacherid => @teacher_id, :courseid => @course_id} , :method=>:post  %></td>
+      <td><%= button_to '-', {:controller => "view_courses", :action => "destroy", :teacherid => @teacher_id, :courseid => @course_id} , :method=>:delete  %></td>
+
     </tr>
   <% end %>
   </tbody>

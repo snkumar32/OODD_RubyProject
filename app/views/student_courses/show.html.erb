@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<h1>Listing Courses for a particular Major</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Major</th>
+    <th></th>
+  </thead>
+
+  <tbody>
+  <tr>
+  <% @student_courses_based_on_major.each do |course|
+      @course_id = course.id
+      @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
+      @student_courses_teacher.each do |t|
+        #@ti = t.id
+        #@tid = t.teacherid
+        # @teacher_name = Teacher.where('id =' => t.teacherid ).name
+        @teacher_name =  Teacher.find_by(id: t.teacherid ).name
+    %>
+
+      <td><%= course.name %></td>
+      <td><%= course.discipline %></td>
+
+      <td><%= @teacher_name%></td>
+        </tr>
+    <% end %>
+    <% end %>
+    </tbody>
+    </table>
+
+    <br>

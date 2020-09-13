@@ -20,13 +20,25 @@ class ViewCoursesController < ApplicationController
     end
   end
 
-
   def create
-    @teacher_course = TeacherCourse.new(params.require(:TeacherCourse).permit(:teacherid, :courseid))
+    @teacher_c = TeacherCourse.new(params.permit(:teacherid, :courseid))
     respond_to do |format|
-      if @teacher_course.save
-        format.html { redirect_to '/students', notice: 'T_C was successfully created.' }
+      if @teacher_c.save
+        format.html { redirect_to view_courses_path, notice: 'Successfully registered .' }
+        format.json { render :show, status: :created, location: @teacher_c }
+      else
+        format.html { render :new }
+        format.json { render json: @teacher_course.errors, status: :unprocessable_entity }
+      end
     end
+  end
+
+  def destroy
+    @teacher_c = TeacherCourse.find_by(teacherid: params[:teacherid], courseid: params[:courseid])
+    @teacher_c.destroy
+    respond_to do |format|
+      format.html { redirect_to view_courses_path, notice: 'Successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 end

@@ -1,4 +1,3 @@
 class TeacherCourse < ApplicationRecord
-  belongs_to :teacher
-  belongs_to :course
+   #validates :teacherid, uniqueness: { scope: :courseid }
 end
