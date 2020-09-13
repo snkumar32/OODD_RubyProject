@@ -12,16 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %><br />
-    <%= form.text_field :name %>
-    <%= form.label :email_field %><br />
-    <%= form.email_field :email %>
-    <%= form.label :address %><br />
-    <%= form.text_field :address %>
-    <%= form.label :major %><br />
-    <%= form.text_field :major %>
-    <%= form.label :phone_field %><br />
-    <%= form.phone_field :phone %>
+    <%= form.label :name %>
+    <%= form.text_field :name %><br />
+
+
+    <%= form.hidden_field :email, value:params[:email] %><br />
+
+    <%= form.label :address %>
+    <%= form.text_field :address %><br />
+
+    <%= form.label :major %>
+    <%= form.text_field :major %><br />
+
+    <%= form.label :phone_field %>
+    <%= form.phone_field :phone %><br />
   </div>
   <div class="actions">
     <%= form.submit %>
