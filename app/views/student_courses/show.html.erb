@@ -14,20 +14,16 @@
   <% @student_courses_based_on_major.each do |course|
       @course_id = course.id
       @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
-      @student_courses_teacher.each do |t|
-        #@ti = t.id
-        #@tid = t.teacherid
-        # @teacher_name = Teacher.where('id =' => t.teacherid ).name
-        @teacher_name =  Teacher.find_by(id: t.teacherid ).name
     %>
 
       <td><%= course.name %></td>
       <td><%= course.discipline %></td>
+      <%= form_tag student_course_path :method=> "get" do %>
+      <td>  <%= select_tag "teacher_c", options_for_select(@teacher_course_dict[@course_id]) %></td>
+      <% end %>
+      </tr>
+    <% end %>
 
-      <td><%= @teacher_name%></td>
-        </tr>
-    <% end %>
-    <% end %>
     </tbody>
     </table>
 
