@@ -9,14 +9,14 @@
         <li class="active"><a href="#">Home</a></li>
       </ul>
       <div class="nav navbar-nav navbar-right">
-        <%= link_to "Logout", '/login', method: :get, :class => "btn btn-lg btn-dark" %><span class="glyphicon glyphicon-log-in"></span>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success' %><span class="btn btn-lg btn-dark"></span>
       </div>
     </div>
   </nav>
   <body>
     <div class = "container">
       <h1 class="h3 mb-3 font-weight-normal">Welcome Admin</h1><br>
-      <% if logged_in? %>
+      <% if current_user %>
         <h1 class="h3 mb-3 font-weight-normal">You are Logged In, <%= current_user.username %></h1>
       <%end%>
     </div>

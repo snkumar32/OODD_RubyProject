@@ -10,4 +10,4 @@ class RegistrationsController < Devise::RegistrationsController
       "/teachers/new?email="+resource.email
     end
   end
-  end
+end

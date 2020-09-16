@@ -1,28 +1,45 @@
-<%= form_for(@course) do |form| %>
-  <% if @course.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
+<div class = "container">
+  <h1>New Course</h1>
 
-      <ul>
-        <% @course.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <%= form_for(@course) do |form| %>
+    <% if @course.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+        <ul>
+          <% @course.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="field">
+      <%= form.label :name %><br />
+      <%= form.text_field :name %><br /><br />
+      <%= form.label :number %><br />
+      <%= form.number_field :number %><br /><br />
+      <%= form.label :discipline %><br />
+      <%= form.text_field :discipline %><br /><br />
+      <%= form.label :area %><br />
+      <%= form.text_field :area %><br /><br />
+      <%= form.label :price %><br />
+      <%= form.text_field :price %><br /><br />
+    </div>
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-  <div class="field">
-    <%= form.label :name %><br />
-    <%= form.text_field :name %>
-    <%= form.label :number %><br />
-    <%= form.number_field :number %>
-    <%= form.label :discipline %><br />
-    <%= form.text_field :discipline %>
-    <%= form.label :area %><br />
-    <%= form.text_field :area %>
-    <%= form.label :price %><br />
-    <%= form.text_field :price %>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
