@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_05_235157) do
+ActiveRecord::Schema.define(version: 2020_09_13_191557) do
+
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "courseid"
+    t.integer "teacherid"
+    t.integer "studentid"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -34,6 +42,11 @@ ActiveRecord::Schema.define(version: 2020_09_05_235157) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "student_courses", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -42,6 +55,14 @@ ActiveRecord::Schema.define(version: 2020_09_05_235157) do
     t.string "address"
     t.string "phone"
     t.string "major"
+  end
+
+  create_table "teacher_courses", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "teacherid"
+    t.string "courseid"
+    t.index ["teacherid", "courseid"], name: "index_teacher_courses_on_teacherid_and_courseid", unique: true
   end
 
   create_table "teachers", force: :cascade do |t|
@@ -55,10 +76,16 @@ ActiveRecord::Schema.define(version: 2020_09_05_235157) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "category"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

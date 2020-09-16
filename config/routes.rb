@@ -7,7 +7,13 @@ Rails.application.routes.draw do
   resources :admins
   resources :students
   resources :courses
+
+  post 'view_courses/:id', to: 'view_courses#create', :as => 'view_courses'
+  get 'view_courses/:id' => "view_courses#show"
   resources :view_courses
+  #post 'view_courses/:id', to: 'view_courses#create', :as => 'view_courses'
+  #get 'view_courses/:id' => "view_courses#show"
+  resources :student_courses
   # ---------------> remember not to put pages controller as resources <-----------------
   get 'pages/landingPage'
   get 'pages/teacherLandingPage'

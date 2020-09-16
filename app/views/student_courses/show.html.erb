@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+<h1>Listing Courses for a particular Major</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Major</th>
+    <th></th>
+  </thead>
+
+  <tbody>
+  <tr>
+  <% @student_courses_based_on_major.each do |course|
+      @course_id = course.id
+      @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
+    %>
+
+      <td><%= course.name %></td>
+      <td><%= course.discipline %></td>
+      <%= form_tag student_course_path :method=> "get" do %>
+      <td>  <%= select_tag "teacher_c", options_for_select(@teacher_course_dict[@course_id]) %></td>
+      <% end %>
+      </tr>
+    <% end %>
+
+    </tbody>
+    </table>
+
+    <br>

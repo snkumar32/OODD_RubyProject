@@ -4,4 +4,6 @@ class PagesController < ApplicationController
   def landingPage
     @teacher = Teacher.new
   end
+  def teacherLandingPage
+  end
 end

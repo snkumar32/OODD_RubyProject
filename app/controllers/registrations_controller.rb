@@ -4,7 +4,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    #@teacher_cat =  Teacher.find_by(id: params[:id]).category
-    '/pages/landingPage'
+    if resource.category=='Student'
+      "/students/new?email="+resource.email
+    else
+      "/teachers/new?email="+resource.email
+    end
   end
 end
