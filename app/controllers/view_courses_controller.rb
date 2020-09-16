@@ -50,5 +50,5 @@ class ViewCoursesController < ApplicationController
         format.html { redirect_to view_courses_path, notice: 'Value does not exist' }
       end
     end
-    end
+  end
 end
