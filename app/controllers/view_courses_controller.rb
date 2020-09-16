@@ -23,22 +23,32 @@ class ViewCoursesController < ApplicationController
   def create
     @teacher_c = TeacherCourse.new(params.permit(:teacherid, :courseid))
     respond_to do |format|
-      if @teacher_c.save
-        format.html { redirect_to view_courses_path, notice: 'Successfully registered .' }
-        format.json { render :show, status: :created, location: @teacher_c }
+      if TeacherCourse.exists?(:teacherid => @teacher_c.teacherid, :courseid => @teacher_c.courseid)
+        format.html { redirect_to view_courses_path, notice: 'Value exists. No update.' }
       else
-        format.html { render :new }
-        format.json { render json: @teacher_course.errors, status: :unprocessable_entity }
+        if @teacher_c.save
+          format.html { redirect_to view_courses_path, notice: 'Successfully registered.' }
+          format.json { render :show, status: :created, location: @teacher_c }
+        else
+          format.html { render :new }
+          format.json { render json: @teacher_course.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def destroy
     @teacher_c = TeacherCourse.find_by(teacherid: params[:teacherid], courseid: params[:courseid])
-    @teacher_c.destroy
-    respond_to do |format|
-      format.html { redirect_to view_courses_path, notice: 'Successfully destroyed.' }
-      format.json { head :no_content }
+    if TeacherCourse.exists?(:teacherid => params[:teacherid], :courseid => params[:courseid])
+      @teacher_c.destroy
+      respond_to do |format|
+        format.html { redirect_to view_courses_path, notice: 'Successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to view_courses_path, notice: 'Value does not exist' }
+      end
     end
   end
 end

@@ -5,8 +5,10 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
     </ul>
     <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
     </div>
   </div>
 </nav>
@@ -18,12 +20,25 @@
     </header>
     <main role="main" class="inner cover">
       <h1 class="cover-heading">Welcome after teacher's log in page --- Landing Page</h1>
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success' %><span class="btn btn-lg btn-dark"></span>
     </main>
-    <% if Teacher.exists?(email: current_user.email)
-           teacher_id = Teacher.find_by(email: current_user.email)
+    <% if Teacher.exists?(email: current_user.email) || current_user.category == 'Admin'
+           teacher_id = Teacher.find_by(email:params[:email])
       %>
-        <%= link_to "View Courses", view_courses_path(id: teacher_id.id), :class => "btn btn-lg btn-info" %>
-      <%end%>
+      <br><br>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Teaching Courses</th>
+          <th>Registered Courses</th>
+          <th>Course History</th>
+        </tr>
+        <tbody>
+        <td><%= link_to "View Courses", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
+        <td><%= link_to "Registered Courses", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
+        <td><%= link_to "History", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
+        </tbody>
+        </thead>
+      </table>
+    <%end%>
   </div>
 </div>

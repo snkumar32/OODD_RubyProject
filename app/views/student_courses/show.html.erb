@@ -1,7 +1,23 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
 <p id="notice"><%= notice %></p>
+<div class = "container">
 <h1>Listing Courses for a particular Major</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
   <tr>
     <th>Name</th>
@@ -10,11 +26,12 @@
   </thead>
 
   <tbody>
-  <tr>
-  <% @student_courses_based_on_major.each do |course|
-      @course_id = course.id
-      @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
-    %>
+    <tr>
+      <%
+        @student_courses_based_on_major.each do |course|
+        @course_id = course.id
+        @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
+      %>
 
       <td><%= course.name %></td>
       <td><%= course.discipline %></td>
@@ -25,6 +42,7 @@
     <% end %>
 
     </tbody>
-    </table>
+  </table>
 
     <br>
+</div>
