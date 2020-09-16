@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   resources :students
   resources :courses
   post 'view_courses/:id', to: 'view_courses#create', :as => 'view_courses'
+  post 'student_courses/:id', to: 'student_courses#create', :as => 'student_courses'
+
   get 'view_courses/:id' => "view_courses#show"
+  get 'student_courses/:id' => "student_courses#show"
   resources :view_courses
+  resources :cart
   #post 'view_courses/:id', to: 'view_courses#create', :as => 'view_courses'
   #get 'view_courses/:id' => "view_courses#show"
   resources :student_courses

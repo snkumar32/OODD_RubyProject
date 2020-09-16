@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+<h1>Listing Courses for a particular Major</h1>
+
+<table class = "table table-striped">
+  <thead>
+  <tr>
+    <th>Course Name</th>
+    <th>Teacher Name</th>
+  </thead>
+
+  <tbody>
+  <tr>
+    <% @student_cart.each do |scart|
+    %>
+      <td><%= Course.find_by(id: scart.courseid).name %></td>
+      <td><%= Teacher.find_by(id: scart.teacherid).name %></td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+<%= link_to 'Back', student_course_path %>
+    <br>
