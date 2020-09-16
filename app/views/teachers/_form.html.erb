@@ -1,29 +1,47 @@
-<%= form_for(@teacher) do |form| %>
-  <% if @teacher.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
 
-      <ul>
-        <% @teacher.errors.full_messages.each do |message| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
+<div class = "container">
+  <h1>New Teacher</h1>
+  <%= form_for(@teacher) do |form| %>
+    <% if @teacher.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+
+        <ul>
+          <% @teacher.errors.full_messages.each do |message| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name %><br />
+      <%= form.text_field :name %><br /><br />
+      <%= form.label :email_field %><br />
+      <%= form.email_field :email %><br /><br />
+      <%= form.label :address %><br />
+      <%= form.text_field :address %><br /><br />
+      <%= form.label :discipline %><br />
+      <%= form.text_field :discipline %><br /><br />
+      <%= form.label :phone_field %><br />
+      <%= form.phone_field :phone %><br /><br />
+    </div>
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %><br />
-    <%= form.text_field :name %>
-    <%= form.label :email_field %><br />
-    <%= form.email_field :email %>
-    <%= form.label :address %><br />
-    <%= form.text_field :address %>
-    <%= form.label :discipline %><br />
-    <%= form.text_field :discipline %>
-    <%= form.label :phone_field %><br />
-    <%= form.phone_field :phone %>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

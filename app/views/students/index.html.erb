@@ -1,29 +1,45 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
 <p id="notice"><%= notice %></p>
+<div class = "container">
+  <h1>Listing Students</h1>
 
-<h1>Listing Students</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Major</th>
-      <th></th>
-      <th></th>
-  </thead>
-
-  <tbody>
-    <% @students.each do |student| %>
+  <table class="table table-striped">
+    <thead>
       <tr>
-        <td><%= student.name %></td>
-        <td><%= student.major %></td>
-        <td><%= link_to 'Show', student %></td>
-        <td><%= link_to 'Edit', edit_student_path(student) %></td>
-        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <th>Name</th>
+        <th>Major</th>
+        <th></th>
+        <th></th>
+    </thead>
 
-<br>
+    <tbody>
+      <% @students.each do |student| %>
+        <tr>
+          <td><%= student.name %></td>
+          <td><%= student.major %></td>
+          <td><%= link_to 'Show', student %></td>
+          <td><%= link_to 'Edit', edit_student_path(student) %></td>
+          <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New Student', new_student_path %>
+  <br>
+
+  <%= link_to 'New Student', new_student_path %>
+</div>
