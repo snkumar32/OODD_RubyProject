@@ -22,21 +22,12 @@
     <th>Major</th>
     <th></th>
   </thead>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Major</th>
-      <th></th>
-    </thead>
     <tbody>
     <% @final_course.each do |course|
     @course_id = course.id%>
       <tr>
         <td><%= course.name %></td>
         <td><%= course.discipline %></td>
-        <td><%= @teacher_id%></td>
-        <td><%= @course_id %></td>
         <td><%= button_to '+', {:controller => "view_courses", :action => "create", :teacherid => @teacher_id, :courseid => @course_id} , :method=>:post  %></td>
         <td><%= button_to '-', {:controller => "view_courses", :action => "destroy", :teacherid => @teacher_id, :courseid => @course_id} , :method=>:delete  %></td>
       </tr>
