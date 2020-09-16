@@ -15,12 +15,11 @@ class StudentCoursesController < ApplicationController
       @course_id = course.id
       @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
       @student_courses_teacher.each do |t|
-        @teacher_course_dict[@course_id]  <<  Teacher.find_by(id: t.teacherid ).name
-        end
-    respond_to do |format|
-      format.html # show.html.erb
+        @teacher_course_dict[@course_id] << Teacher.find_by(id: t.teacherid).name
+      end
+      respond_to do |format|
+        format.html # show.html.erb
+      end
     end
   end
-
 end
-  end

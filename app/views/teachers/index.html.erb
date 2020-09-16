@@ -31,6 +31,7 @@
         <tr>
           <td><%= teacher.name %></td>
           <td><%= teacher.discipline %></td>
+          <td><%= link_to 'View as Teacher', {:controller => "pages", :action => "teacherLandingPage", :email => teacher.email} , :method=>:get  %></td>
           <td><%= link_to 'Show', teacher %></td>
           <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
           <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>

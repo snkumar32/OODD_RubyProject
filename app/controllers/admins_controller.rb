@@ -3,6 +3,5 @@ class AdminsController < ApplicationController
   def adminLogin
   end
   def show
-
   end
 end

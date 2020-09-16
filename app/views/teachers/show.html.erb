@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -12,26 +11,29 @@
     </div>
   </div>
 </nav>
-<p>
-  <b>Name:</b>
-  <%= @teacher.name %>
-</p>
-<p>
-  <b>Email:</b>
-  <%= @teacher.email %>
-</p>
-<p>
-  <b>Address:</b>
-  <%= @teacher.address %>
-</p>
-<p>
-  <b>Discipline:</b>
-  <%= @teacher.discipline %>
-</p>
-<p>
-  <b>Phone:</b>
-  <%= @teacher.phone %>
-</p>
+<p id="notice"><%= notice %></p>
+<div class = "container">
+  <p>
+    <b>Name:</b>
+    <%= @teacher.name %>
+  </p>
+  <p>
+    <b>Email:</b>
+    <%= @teacher.email %>
+  </p>
+  <p>
+    <b>Address:</b>
+    <%= @teacher.address %>
+  </p>
+  <p>
+    <b>Discipline:</b>
+    <%= @teacher.discipline %>
+  </p>
+  <p>
+    <b>Phone:</b>
+    <%= @teacher.phone %>
+  </p>
 
-<%= link_to 'Edit', edit_teacher_path(@teacher) %> |
-<%= link_to 'Back', teachers_path %>
+  <%= link_to 'Edit', edit_teacher_path(@teacher) %> |
+  <%= link_to 'Back', teachers_path %>
+</div>
