@@ -16,7 +16,7 @@ class StudentCoursesController < ApplicationController
       @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
       @student_courses_teacher.each do |t|
         @teacher_course_dict[@course_id]  <<  Teacher.find_by(id: t.teacherid ).id
-        end
+      end
     respond_to do |format|
       format.html # show.html.erb
     end
@@ -24,7 +24,6 @@ class StudentCoursesController < ApplicationController
   end
     @new_cart = StudentCourse.new(params.permit(:teacherid, :courseid, :studentid))
   end
-
 
 def create
   #@studentid = params[:studentid]
@@ -60,6 +59,4 @@ end
       end
     end
   end
-
-
 end
