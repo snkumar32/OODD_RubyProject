@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 <h1>Listing Courses for a particular Major</h1>
 
-<table>
+<table class = "table table-striped">
   <thead>
   <tr>
     <th>Name</th>
     <th>Major</th>
-    <th></th>
+    <th>Teachers</th>
   </thead>
 
   <tbody>
@@ -18,13 +18,24 @@
 
       <td><%= course.name %></td>
       <td><%= course.discipline %></td>
-      <%= form_tag student_course_path :method=> "get" do %>
-      <td>  <%= select_tag "teacher_c", options_for_select(@teacher_course_dict[@course_id]) %></td>
-      <% end %>
+
+      <%= form_for(@new_cart) do |form| %>
+        <div class="field">
+          <%= form.hidden_field :courseid, value:"#{@course_id}" %><br />
+          <%= form.hidden_field :studentid, value:"#{@student_id}" %><br />
+          <td> <%= form.select(:teacherid, @teacher_course_dict[@course_id]) %></td>
+        </div>
+        <div class="actions">
+          <td> <%= form.submit "Add to cart" %> </td>
+        </div>
+    <% end  %>
+      <td><%= button_to '-', {:controller => "student_courses", :action => "destroy", :studentid =>  @student_id, :courseid => @course_id} , :method=>:delete  %></td>
+
       </tr>
-    <% end %>
+    <% end  %>
 
     </tbody>
     </table>
-
+<%= link_to "View cart", cart_path(:studentid => @student_id), :class => "btn btn-lg btn-info" %>
+<%= link_to 'Clear cart', cart_path(:studentid => @student_id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-lg btn-info" %></td>
     <br>
