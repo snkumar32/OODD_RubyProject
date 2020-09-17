@@ -15,7 +15,7 @@
 </nav>
 <p id="notice"><%= notice %></p>
 <div class = "container">
-<h1>Listing Courses for a particular Major</h1>
+<h1>List of available courses</h1>
 
 <table class = "table table-striped">
   <thead>
@@ -24,18 +24,25 @@
     <th>Major</th>
     <th>Teachers</th>
     <th>Course Price</th>
+    <th></th>
   </thead>
 
   <tbody>
     <tr>
       <%
         @student_courses_based_on_major.each do |course|
-        @course_id = course.id
-        @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
+          @course_id = course.id
+          @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
+          sel = []
+          @student_courses_teacher.each do |tc|
+            @faculties = Teacher.find_by(id: tc.teacherid).name
+            sel.append(@faculties)
+          end
       %>
 
       <td><%= course.name %></td>
       <td><%= course.discipline %></td>
+      <td><%= select_tag 'user_id', options_for_select(sel) %></td>
 <% if !@teacher_course_dict[@course_id].empty? %>
       <%= form_for(@new_cart) do |form| %>
         <div class="field">
@@ -57,7 +64,9 @@
     </tbody>
   </table>
 
-<%= link_to "View cart", cart_path(:studentid => @student_id), :class => "btn btn-lg btn-info" %>
-<%= link_to 'Clear cart', cart_path(:studentid => @student_id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-lg btn-info" %></td>
-    <br>
+<%= link_to "View cart", cart_path(:studentid => @student_id), :class => "btn btn-info" %>
+<%= link_to 'Clear cart', cart_path(:studentid => @student_id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-info" %></td>
+<br><br>
+<%= link_to 'Back', pages_landingPage_path(:email => current_user.email) %>
+  <br>
 </div>

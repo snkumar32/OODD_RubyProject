@@ -1,25 +1,36 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
 <p id="notice"><%= notice %></p>
+<div class = "container">
+  <h1>Listing Courses for a particular Major</h1>
 
-<h1>Listing Courses for a particular Major</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Major</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @final_course.each do |course| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= course.name %></td>
-        <td><%= course.discipline %></td>
+        <th>Name</th>
+        <th>Major</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
+    <tbody>
+      <% @final_course.each do |course| %>
+        <tr>
+          <td><%= course.name %></td>
+          <td><%= course.discipline %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
