@@ -12,26 +12,29 @@
     </div>
   </div>
 </nav>
-<p id="notice"><%= notice %></p>
-<div class = "container">
-  <h1>Listing Courses for a particular Major</h1>
+
+
+<h1>Feedbacks</h1>
+
 <table class = "table table-striped">
   <thead>
-  <tr>
-    <th>Name</th>
-    <th>Major</th>
-    <th></th>
+    <tr>
+      <th>Teacher Name</th>
+      <th>Course Name</th>
+      <th>Feedback</th>
+    </tr>
   </thead>
-    <tbody>
-    <% @final_course.each do |course|
-    @course_id = course.id%>
+
+  <tbody>
       <tr>
-        <td><%= course.name %></td>
-        <td><%= course.discipline %></td>
-        <td><%= button_to 'Register', {:controller => "view_courses", :action => "create", :teacherid => @teacher_id, :courseid => @course_id} , :method=>:post  %></td>
-        <td><%= button_to '-', {:controller => "view_courses", :action => "destroy", :teacherid => @teacher_id, :courseid => @course_id} , :method=>:delete  %></td>
+
+        <td><%= Teacher.find_by(id: @feedback_tid).name %></td>
+        <td><%= Course.find_by(id: @feedback_cid).name %></td>
+        <td><%=  @feedback_text %></td>
       </tr>
-    <% end %>
-    </tbody>
-  </table>
-</div>
+
+  </tbody>
+</table>
+
+<br>
+

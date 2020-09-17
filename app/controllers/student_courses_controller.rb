@@ -15,6 +15,8 @@ class StudentCoursesController < ApplicationController
       @course_id = course.id
       @student_courses_teacher = TeacherCourse.where('courseid' => @course_id) #teacher for that course
       @student_courses_teacher.each do |t|
+        # @tid = Teacher.find_by(id: t.teacherid ).id
+        # @tname = Teacher.find_by(id: t.teacherid ).name
         @teacher_course_dict[@course_id]  <<  Teacher.find_by(id: t.teacherid ).id
       end
       respond_to do |format|
