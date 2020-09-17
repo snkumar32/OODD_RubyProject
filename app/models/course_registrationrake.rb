@@ -1,0 +1,2 @@
+class CourseRegistrationrake < ApplicationRecord
+end

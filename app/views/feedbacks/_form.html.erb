@@ -1,0 +1,39 @@
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
+
+<%= form_for(@feedback) do |form| %>
+  <% if feedback.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
+
+      <ul>
+        <% feedback.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+
+    <%= form.hidden_field :teacherid, value:params[:teacherid] %><br />
+    <%= form.hidden_field :courseid, value:params[:courseid] %><br />
+    <%= form.label :Feedback %><br /><br />
+    <%= form.text_area(:ftext, size: '50x10') %><br /><br />
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

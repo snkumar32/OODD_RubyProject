@@ -12,49 +12,60 @@
     </div>
   </div>
 </nav>
-<p id="notice"><%= notice %></p>
+
+
+
+<h1>Courses Registered</h1>
 
 <div class = "container">
-  <h1>Courses taken by the teacher</h1>
-  <table class = "table table-striped">
-    <% if current_user.category == "Teacher" || current_user.category == "admin"
-      @teacher_course.each do |c|
-        @cname = Course.find_by(id: c.courseid).name %>
-      <thead>
-        <tr>
-          <th>Course Name</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr>
-            <td><%= @cname %></td>
-          </tr>
-      </tbody>
-      <% end %>
+      <% if current_user.category == "Teacher" || current_user.category == "admin"%>
+
+        <table class = "table table-striped">
+         <thead>
+         <tr>
+            <th>Course Name</th>
+         </tr>
+          </thead>
+          <tbody>
+         <% @teacher_course.each do |c|
+           @cname = Course.find_by(id: c.courseid).name %>
+            <tr>
+              <td><%= @cname %></td>
+           </tr>
+          <% end %>
+        </tbody>
+        </table>
+
     <% end %>
-    <thead>
-        <tr>
-          <th>Course Name</th>
-          <th>Faculty</th>
-          <th>Feedback</th>
-          <th>Feedback Complete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @courses_registered_students.each do |cid|
-          @faculty = cid.teacherid
-          @cname = Course.find_by(id: cid.courseid).name
-          @fname = Teacher.find_by(id: cid.teacherid).name
-        %>
+</div>
+<div class = "container">
         <% if current_user.category == "Student" || current_user.category == "admin" %>
-            <td><%= @cname %></td>
-            <td><%= @fname %></td>
-            <td></td>
-            <td></td>
-          </tr>
-        <% end %>
-      <% end %>
-      </tbody>
-  </table>
+
+          <table class = "table table-striped">
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Faculty</th>
+                <th>Feedback</th>
+                <th>Feedback Complete</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            <% @courses_registered_students.each do |cid|
+              @faculty = cid.teacherid
+              @cname = Course.find_by(id: cid.courseid).name
+              @fname = Teacher.find_by(id: cid.teacherid).name
+            %>
+            <tr>
+              <td><%= @cname %></td>
+              <td><%= @fname %></td>
+              <td><%= link_to 'Give feedback', new_feedback_path( :teacherid => cid.teacherid, :courseid => cid.courseid), :class => "btn btn-info" %> </td>
+              <td> <%= link_to "View feedback", feedbacks_path(:teacherid => cid.teacherid, :courseid => cid.courseid), :class => "btn btn-info" %> </td>
+            </tr>
+            <% end %>
+              </tbody>
+          </table>
+          <% end %>
+
 </div>

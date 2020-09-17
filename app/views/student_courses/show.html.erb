@@ -13,7 +13,7 @@
     </div>
   </div>
 </nav>
-<p id="notice"><%= notice %></p>
+
 <div class = "container">
 <h1>Listing Courses for a particular Major</h1>
 
@@ -22,8 +22,9 @@
   <tr>
     <th>Course Name</th>
     <th>Major</th>
-    <th>Teachers</th>
     <th>Course Price</th>
+    <th>Teachers</th>
+
   </thead>
 
   <tbody>
@@ -36,20 +37,19 @@
 
       <td><%= course.name %></td>
       <td><%= course.discipline %></td>
-<% if !@teacher_course_dict[@course_id].empty? %>
-      <%= form_for(@new_cart) do |form| %>
-        <div class="field">
+        <td><%= course.price %></td>
+        <td>  <% if !@teacher_course_dict[@course_id].empty? %>
+          <%= form_for(@new_cart) do |form| %>
           <%= form.hidden_field :courseid, value:"#{@course_id}" %><br />
           <%= form.hidden_field :studentid, value:"#{@student_id}" %><br />
-          <td> <%= form.select(:teacherid, @teacher_course_dict[@course_id]) %></td>
-        </div>
-          <td><%= course.price %></td>
-        <div class="actions">
-          <td> <%= form.submit "Add to cart" %> </td>
-        </div>
-    <% end  %>
+       <%= form.select(:teacherid, @teacher_course_dict[@course_id]) %>
+              <br>
+     <div class="actions">
+      <%= form.submit "Add to cart" %>
+      </div></td>
+      <% end  %>
       <td><%= button_to '-', {:controller => "student_courses", :action => "destroy", :studentid =>  @student_id, :courseid => @course_id} , :method=>:delete  %></td>
-        <% end  %>
+      <% end  %>
       </tr>
 
       <% end  %>

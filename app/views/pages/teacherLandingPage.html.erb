@@ -19,7 +19,7 @@
       </div>
     </header>
     <main role="main" class="inner cover">
-      <h1 class="cover-heading">Welcome after teacher's log in page --- Landing Page</h1>
+      <h1 class="cover-heading">Welcome, <%= current_user.email %></h1>
     </main>
     <% if Teacher.exists?(email: current_user.email) || current_user.category == 'Admin'
            teacher_id = Teacher.find_by(email:params[:email])
@@ -31,11 +31,13 @@
           <th>Teaching Courses</th>
           <th>Registered Courses</th>
           <th>Course History</th>
+          <th>View Feedback </th>
         </tr>
         <tbody>
         <td><%= link_to "View Courses", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
         <td><%= link_to "Registered Courses", registered_course_show_path(id: teacher_id.id), :class => "btn btn-info" %></td>
         <td><%= link_to "History", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
+        <td><%= link_to "View Feedback",  :controller => :feedbacks, :action => :display, :teacherid => teacher_id.id, :class => "btn btn-info" %> </td>
         </tbody>
         </thead>
       </table>
