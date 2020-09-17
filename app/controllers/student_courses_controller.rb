@@ -9,19 +9,18 @@ class StudentCoursesController < ApplicationController
   def show
     @student_id = params[:id]
     @teacher_course_dict = Hash.new{|hsh,key| hsh[key] = [] }
-    @student_major = Student.find_by(id: @student_id).major
-    @student_courses_based_on_major = Course.where("discipline = ?", @student_major)
+    @student_major = Student.find_by(id: @student_id).major #get major
+    @student_courses_based_on_major = Course.where("discipline = ?", @student_major) #course where discipline = major
     @student_courses_based_on_major.each do |course|
       @course_id = course.id
-      @student_courses_teacher = TeacherCourse.where('courseid' => @course_id)
+      @student_courses_teacher = TeacherCourse.where('courseid' => @course_id) #teacher for that course
       @student_courses_teacher.each do |t|
         @teacher_course_dict[@course_id]  <<  Teacher.find_by(id: t.teacherid ).id
       end
-    respond_to do |format|
-      format.html # show.html.erb
+      respond_to do |format|
+        format.html # show.html.erb
+      end
     end
-
-  end
     @new_cart = StudentCourse.new(params.permit(:teacherid, :courseid, :studentid))
   end
 
