@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_09_16_231211) do
 
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "courseid"
+    t.integer "teacherid"
+    t.integer "studentid"
+  end
+
   create_table "course_registrations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -40,6 +48,13 @@ ActiveRecord::Schema.define(version: 2020_09_16_231211) do
     t.integer "expMonth"
     t.integer "expYear"
     t.integer "cvv"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "registered_courses", force: :cascade do |t|
+    t.integer "sid"
+    t.integer "cid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
