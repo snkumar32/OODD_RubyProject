@@ -20,9 +20,10 @@
 <table class = "table table-striped">
   <thead>
   <tr>
-    <th>Name</th>
+    <th>Course Name</th>
     <th>Major</th>
     <th>Teachers</th>
+    <th>Course Price</th>
   </thead>
 
   <tbody>
@@ -35,21 +36,23 @@
 
       <td><%= course.name %></td>
       <td><%= course.discipline %></td>
-
+<% if !@teacher_course_dict[@course_id].empty? %>
       <%= form_for(@new_cart) do |form| %>
         <div class="field">
           <%= form.hidden_field :courseid, value:"#{@course_id}" %><br />
           <%= form.hidden_field :studentid, value:"#{@student_id}" %><br />
           <td> <%= form.select(:teacherid, @teacher_course_dict[@course_id]) %></td>
         </div>
+          <td><%= course.price %></td>
         <div class="actions">
           <td> <%= form.submit "Add to cart" %> </td>
         </div>
     <% end  %>
       <td><%= button_to '-', {:controller => "student_courses", :action => "destroy", :studentid =>  @student_id, :courseid => @course_id} , :method=>:delete  %></td>
-
+        <% end  %>
       </tr>
-    <% end  %>
+
+      <% end  %>
 
     </tbody>
   </table>

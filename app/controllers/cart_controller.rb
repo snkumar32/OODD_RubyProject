@@ -13,6 +13,7 @@ class CartController < ApplicationController
 
   def show
     @student_cart = StudentCourse.where("studentid = ?", params[:studentid])
+    @student_id_for_reg = params[:studentid]
     #@student_cart = StudentCourse.find_by(studentid: params[:studentid])
     respond_to do |format|
       format.html # show.html.erb
