@@ -17,17 +17,14 @@ class CourseRegistrationController < ApplicationController
       if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
         format.html { redirect_to student_course_path, notice: 'Value exists. No update.' }
       else
-      c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
-      #@student_course_reg.save!
-      StudentCourse.where(teacherid: @tid, courseid: @cid, studentid: params[:studentid]).destroy_all
-       format.html { redirect_to course_registration_path(:studentid => params[:studentid]), action: "show", notice: 'Placed Order.' }
-      end
-      end
-
-
+        c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
+        #@student_course_reg.save!
+        StudentCourse.where(teacherid: @tid, courseid: @cid, studentid: params[:studentid]).destroy_all
+         format.html { redirect_to course_registration_path(:studentid => params[:studentid]), action: "show", notice: 'Placed Order.' }
         end
+      end
+    end
   end
-
 
   def show
     @student_cart = CourseRegistration.where("studentid = ?", params[:studentid])
@@ -36,5 +33,4 @@ class CourseRegistrationController < ApplicationController
       format.html # show.html.erb
     end
   end
-
 end

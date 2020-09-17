@@ -34,7 +34,7 @@
         </tr>
         <tbody>
         <td><%= link_to "View Courses", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
-        <td><%= link_to "Registered Courses", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
+        <td><%= link_to "Registered Courses", registered_course_show_path(id: teacher_id.id), :class => "btn btn-info" %></td>
         <td><%= link_to "History", view_courses_path(id: teacher_id.id), :class => "btn btn-info" %></td>
         </tbody>
         </thead>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'registered_course/show'
   devise_for :users, :controllers => {:registrations => "registrations"}
   get 'teachers_login/show'
   #get 'admins/adminLogin'
