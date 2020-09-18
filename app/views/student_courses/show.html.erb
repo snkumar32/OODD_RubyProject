@@ -60,4 +60,5 @@
 <%= link_to "View cart", cart_path(:studentid => @student_id), :class => "btn btn-lg btn-info" %>
 <%= link_to 'Clear cart', cart_path(:studentid => @student_id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-lg btn-info" %></td>
     <br>
+  <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
 </div>

@@ -13,27 +13,27 @@
   </div>
 </nav>
 
-<h1>Registered Courses</h1>
+<h1>Listing All Students</h1>
 
 <table class = "table table-striped">
   <thead>
   <tr>
     <th>Course Name</th>
-    <th>Teacher Name</th>
-    <th>Course Price</th>
+    <th>Student Name</th>
+    <th>Student-Course Status</th>
   </thead>
 
   <tbody>
   <tr>
-    <% @student_cart.each do |scart|
+    <% @student_list.each do |slist|
     %>
-      <td><%= Course.find_by(id: scart.courseid).name %></td>
-      <td><%= Teacher.find_by(id: scart.teacherid).name %></td>
-      <td><%= Course.find_by(id: scart.courseid).price %></td>
-  </tr>
-<% end %>
-  </tbody>
+      <td><%= Course.find_by(id: slist.courseid).name %></td>
+      <td><%= Student.find_by(id: slist.studentid).name %></td>
+      <td><%= slist.status %></td>
+      </tr>
+    <% end %>
+    </tbody>
 </table>
-<%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
 
-    <br>
+<br>
+<%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>

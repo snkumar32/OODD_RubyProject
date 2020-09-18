@@ -3,9 +3,10 @@ class RegisteredCourseController < ApplicationController
   def show
     if current_user.category == "Teacher"
       @teacher_id = params[:id]
-      @teacher_course = TeacherCourse.where("teacherid=?",@teacher_id)
+      @teacher_course = TeacherCourse.where("teacherid=? AND status=?", @teacher_id, "in-progress")
     else
       @student_id = params[:id]
+      @student_history = params[:history]
       @courses_registered_students = CourseRegistration.where("studentid=?",@student_id)
     end
 
