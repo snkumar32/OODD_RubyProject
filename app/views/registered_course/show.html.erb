@@ -13,11 +13,30 @@
   </div>
 </nav>
 
-
-
 <div class = "container">
-      <% if current_user.category == "Teacher" || current_user.category == "admin"%>
+  <% if current_user.category == "Teacher" || current_user.category == "admin"%>
         <h1> Teacher - Courses Registered</h1>
+        <% if@teacher_history == "true"%>
+            <h2> Course History</h2>
+            <table class = "table table-striped">
+            <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% @teacher_course.each do |c|
+              @cname = Course.find_by(id: c.courseid).name %>
+          <tr>
+            <td><%= @cname %></td>
+            <td><%= c.status %></td>
+          </tr>
+              <% end %>
+            </tbody>
+          </table>
+    <% else %>
             <table class = "table table-striped">
               <thead>
                 <tr>
@@ -35,7 +54,9 @@
         </table>
     <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
     <% end %>
+  <% end %>
 </div>
+
 <div class = "container">
         <% if current_user.category == "Student" || current_user.category == "admin" %>
     <h1> Student - Courses Registered</h1>
