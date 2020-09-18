@@ -1,6 +1,7 @@
 class CourseRegistrationController < ApplicationController
   def create
     @student_cart = StudentCourse.where("studentid=?", params[:studentid])
+    @student_one=Student.find(params[:studentid])
     #@student_id_for_reg = params[:studentid]
     respond_to do |format|
     #@student_cart = StudentCourse.find_by(studentid: params[:studentid])
@@ -25,6 +26,8 @@ class CourseRegistrationController < ApplicationController
       else
         c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
         #@student_course_reg.save!
+        message = UserMailer.with(student: @student_one)
+        message.deliver_now
         StudentCourse.where(teacherid: @tid, courseid: @cid, studentid: params[:studentid]).destroy_all
          format.html { redirect_to pages_landingPage_path(email: current_user.email), action: "show", notice: 'Placed Order.' }
         end
