@@ -79,7 +79,9 @@ class TeachersController < ApplicationController
   # DELETE /teachers/1.json
   def destroy
     @teacher = Teacher.find(params[:id])
+    @user_value = User.find_by(email: @teacher.email)
     @teacher.destroy
+    @user_value.destroy
     respond_to do |format|
       format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
       format.json { head :no_content }
