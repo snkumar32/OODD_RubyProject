@@ -6,7 +6,13 @@
         <a class="navbar-brand" href="#">Course Manager</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <% if current_user.category == "Student" %>
+          <%= link_to 'Home', pages_landingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+        <% elsif current_user.category == "Teacher" %>
+          <%= link_to 'Home', pages_teacherLandingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+        <% elsif current_user.category == "admin" %>
+          <%= link_to 'Home', '/admins/show', :class => 'navbar-brand' %>
+        <% end %>
       </ul>
       <div class="nav navbar-nav navbar-right">
         <%= link_to "Logout", '/login', method: :get, :class => "btn btn-lg btn-dark" %><span class="glyphicon glyphicon-log-in"></span>
