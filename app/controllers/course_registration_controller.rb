@@ -1,6 +1,6 @@
 class CourseRegistrationController < ApplicationController
   def create
-    @student_cart = StudentCourse.where("studentid = ?", params[:studentid])
+    @student_cart = StudentCourse.where("studentid=?", params[:studentid])
     #@student_id_for_reg = params[:studentid]
     respond_to do |format|
     #@student_cart = StudentCourse.find_by(studentid: params[:studentid])
@@ -15,12 +15,12 @@ class CourseRegistrationController < ApplicationController
       @typevalue  = "in-progress"
 
       if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
-        format.html { redirect_to student_course_path, notice: 'Value exists. No update.' }
+        format.html { redirect_to pages_landingPage_path(email: current_user.email), notice: 'Value exists. No update.' }
       else
         c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
         #@student_course_reg.save!
         StudentCourse.where(teacherid: @tid, courseid: @cid, studentid: params[:studentid]).destroy_all
-         format.html { redirect_to course_registration_path(:studentid => params[:studentid]), action: "show", notice: 'Placed Order.' }
+         format.html { redirect_to pages_landingPage_path(email: current_user.email), action: "show", notice: 'Placed Order.' }
         end
       end
     end
