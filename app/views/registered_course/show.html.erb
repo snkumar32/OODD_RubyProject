@@ -12,101 +12,115 @@
     </div>
   </div>
 </nav>
-
 <div class = "container">
-  <% if current_user.category == "Teacher" || current_user.category == "admin"%>
-        <h1> Teacher - Courses Registered</h1>
-        <% if@teacher_history == "true"%>
-            <h2> Course History</h2>
-            <table class = "table table-striped">
-            <thead>
-            <tr>
-                <th>Course Name</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <% @teacher_course.each do |c|
-              @cname = Course.find_by(id: c.courseid).name %>
+  <% @catcheck = User.find_by(id: $userId).category %>
+  <% if current_user.category == "Teacher" || (current_user.category == "admin" && @catcheck == "Teacher") %>
+    <h1> Teacher - Courses Registered</h1>
+    <% if@teacher_history == "true"%>
+      <h2> Course History</h2>
+      <table class = "table table-striped">
+        <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @teacher_course.each do |c|
+          @cname = Course.find_by(id: c.courseid).name %>
           <tr>
             <td><%= @cname %></td>
             <td><%= c.status %></td>
           </tr>
-              <% end %>
-            </tbody>
-          </table>
+        <% end %>
+        </tbody>
+      </table>
+      <% if current_user.category == "Teacher" %>
+        <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
+      <% else %>
+        <% @tname = Teacher.find_by(id: @teacher_id).email %>
+        <%= link_to 'Back',pages_landingPage_path(@tname) %>
+      <% end %>
     <% else %>
-            <table class = "table table-striped">
-              <thead>
-                <tr>
-                 <th>Course Name</th>
-                </tr>
-              </thead>
-              <tbody>
-         <% @teacher_course.each do |c|
-           @cname = Course.find_by(id: c.courseid).name %>
-            <tr>
-              <td><%= @cname %></td>
-           </tr>
+      <table class = "table table-striped">
+        <thead>
+        <tr>
+          <th>Course Name</th>
+        </tr>
+        </thead>
+        <tbody>
+          <% if @teacher_course.nil? %>
+            <% @teacher_course.each do |c|
+              @cname = Course.find_by(id: c.courseid).name %>
+              <tr>
+                <td><%= @cname %></td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
-        </table>
-    <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
+      </table>
+      <% if current_user.category == "Teacher" %>
+        <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
+      <% else %>
+        <% @tname = Teacher.find_by(id: @teacher_id).email %>
+        <%= link_to 'Back',pages_landingPage_path(@tname) %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
-
 <div class = "container">
-        <% if current_user.category == "Student" || current_user.category == "admin" %>
+  <% if current_user.category == "Student" || (current_user.category == "admin" && @catcheck == "Student") %>
     <h1> Student - Courses Registered</h1>
-           <% if@student_history == "true"%>
+    <% if@student_history == "true"%>
       <h2> Course History</h2>
-            <table class = "table table-striped">
-              <thead>
-              <tr>
-              <th>Course Name</th>
-              <th>Faculty</th>
-              <th>Status</th>
-            </tr>
-            </thead>
-              <tbody>
-              <%
-                @courses_registered_students.each do |cid|
-                    @faculty = cid.teacherid
-                    @cname = Course.find_by(id: cid.courseid).name
-                    @fname = Teacher.find_by(id: cid.teacherid).name
-              %>
-                  <tr>
-                    <td><%= @cname %></td>
-                    <td><%= @fname %></td>
-                    <td><%= cid.status%> </td>
-                  </tr>
-              <% end %>
-              </tbody>
-            </table>
-      <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
-
-        <% else %>
-          <table class = "table table-striped">
-            <thead>
-              <tr>
-                <th>Course Name</th>
-                <th>Faculty</th>
-                <th>Feedback</th>
-                <th>View given Feedback</th>
-                <th>Drop Courses</th>
-              </tr>
-            </thead>
-
-            <tbody>
-            <%
-              @courses_registered_students.each do |cid|
-                if cid.status == "in-progress"
-                @faculty = cid.teacherid
+      <table class = "table table-striped">
+        <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Faculty</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+          @courses_registered_students.each do |cid|
+            @faculty = cid.teacherid
+            @cname = Course.find_by(id: cid.courseid).name
+            @fname = Teacher.find_by(id: cid.teacherid).name
+        %>
+          <tr>
+            <td><%= @cname %></td>
+            <td><%= @fname %></td>
+            <td><%= cid.status%> </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <% if current_user.category == "Student" %>
+        <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
+      <% else %>
+        <% @sname = Student.find_by(id: @student_id).email %>
+        <%= link_to 'Back',pages_landingPage_path(@sname) %>
+      <% end %>
+    <% else %>
+      <table class = "table table-striped">
+        <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Faculty</th>
+          <th>Feedback</th>
+          <th>View given Feedback</th>
+          <th>Drop Courses</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+          @courses_registered_students.each do |cid|
+            if cid.status == "in-progress"
+              @faculty = cid.teacherid
               @cname = Course.find_by(id: cid.courseid).name
               @fname = Teacher.find_by(id: cid.teacherid).name
-            %>
+        %>
             <tr>
               <td><%= @cname %></td>
               <td><%= @fname %></td>
@@ -114,13 +128,16 @@
               <td> <%= link_to "View feedback", feedbacks_path(:teacherid => cid.teacherid, :courseid => cid.courseid), :class => "btn btn-info" %> </td>
               <td><%= link_to 'Drop', course_registration_drop_path(:id => params[:id], :studentid => @student_id, :courseid => cid.courseid, :teacherid => cid.teacherid, :status => "dropped") , method: :put, :class => "btn btn-info" %></td>
             </tr>
-            <% end %>
-            <% end %>
-              </tbody>
-          </table>
-    <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
           <% end %>
+        <% end %>
+        </tbody>
+      </table>
+      <% if current_user.category == "Student" %>
+        <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
+      <% else %>
+        <% @sname = Student.find_by(id: @student_id).email %>
+        <%= link_to 'Back',pages_landingPage_path(@sname) %>
+      <% end %>
+    <% end %>
   <% end %>
-
 </div>
-
