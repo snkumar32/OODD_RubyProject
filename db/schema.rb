@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_09_18_030827) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "teacherid"
     t.string "courseid"
+    t.string "status"
     t.index ["teacherid", "courseid"], name: "index_teacher_courses_on_teacherid_and_courseid", unique: true
   end
 

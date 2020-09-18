@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
 
   post 'view_courses/:id', to: 'view_courses#create', :as => 'view_courses'
+  put 'view_courses/:id', to: 'view_courses#drop', :as => 'view_courses_drop'
+
   post 'student_courses/:id', to: 'student_courses#create', :as => 'student_courses'
   post 'course_registration/:id', to: 'course_registration#create', :as => 'course_registration'
 
@@ -21,11 +23,15 @@ Rails.application.routes.draw do
   get 'view_courses/:id' => "view_courses#show"
   get 'student_courses/:id' => "student_courses#show"
   get 'course_registration/:id' => "course_registration#show"
+  get 'course_registration_path/:teacherid' => "course_registration#display", as: :course_registration_display
+
   get 'feedbacks_path/:teacherid' => "feedbacks#display", as: :feedbacks_path
   get 'feedbacks_path/:teacherid/:courseid' => "feedbacks_path#index"
 
   #get 'payments/:studentid' => "payments#display", as: :payments_path
   #get 'payments/new/:studentid' =>
+
+  put 'course_registration/:id' => 'course_registration#drop', as: :course_registration_drop
 
   resources :feedbacks
   resources :view_courses

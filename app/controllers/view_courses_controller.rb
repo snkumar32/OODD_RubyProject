@@ -8,6 +8,7 @@ class ViewCoursesController < ApplicationController
   end
 
   def show
+    @history_value = params[:history]
     @teacher_id = params[:id]
     #@teacher_course = Teacher.select(:discipline).where("id = ?", @teacher_id)
     @teacher_course = Teacher.find_by(id: @teacher_id).discipline
@@ -21,13 +22,17 @@ class ViewCoursesController < ApplicationController
   end
 
   def create
-    @teacher_c = TeacherCourse.new(params.permit(:teacherid, :courseid))
+    @teacher_c = TeacherCourse.new(params.permit(:teacherid, :courseid, :status))
     respond_to do |format|
-      if TeacherCourse.exists?(:teacherid => @teacher_c.teacherid, :courseid => @teacher_c.courseid)
-        format.html { redirect_to view_courses_path, notice: 'Value exists. No update.' }
+      if TeacherCourse.exists?(:teacherid => @teacher_c.teacherid, :courseid => @teacher_c.courseid, :status => @teacher_c.status)
+        format.html { redirect_to view_courses_path, notice: 'Course exists. No update!' }
+      elsif TeacherCourse.exists?(:teacherid => @teacher_c.teacherid, :courseid => @teacher_c.courseid, :status => "dropped")
+        @tc = TeacherCourse.find_by(:teacherid =>  @teacher_c.teacherid, :courseid =>  @teacher_c.courseid)
+        @tc.update_attributes(status: "in-progress")
+        format.html { redirect_to view_courses_path, notice: 'Successfully updated.' }
       else
         if @teacher_c.save
-          format.html { redirect_to view_courses_path, notice: 'Successfully registered.' }
+          format.html { redirect_to view_courses_path, notice: 'Success! New registration!' }
           format.json { render :show, status: :created, location: @teacher_c }
         else
           format.html { render :new }
@@ -37,17 +42,22 @@ class ViewCoursesController < ApplicationController
     end
   end
 
-  def destroy
-    @teacher_c = TeacherCourse.find_by(teacherid: params[:teacherid], courseid: params[:courseid])
-    if TeacherCourse.exists?(:teacherid => params[:teacherid], :courseid => params[:courseid])
-      @teacher_c.destroy
+  def drop
+    @teacher_c = TeacherCourse.new(params.permit(:teacherid, :courseid, :status))
+    #@teacher_c = TeacherCourse.find_by(teacherid: params[:teacherid], courseid: params[:courseid])
+    if TeacherCourse.exists?(:teacherid =>  @teacher_c.teacherid, :courseid =>  @teacher_c.courseid, :status => "in-progress")
+      @tc = TeacherCourse.find_by(:teacherid =>  @teacher_c.teacherid, :courseid =>  @teacher_c.courseid)
+      @tc.update_attributes(status: "dropped")
       respond_to do |format|
-        format.html { redirect_to view_courses_path, notice: 'Successfully destroyed.' }
-        format.json { head :no_content }
+        format.html { redirect_to view_courses_path, notice: 'Course dropped successfully!' }
+      end
+    elsif TeacherCourse.exists?(:teacherid =>  @teacher_c.teacherid, :courseid =>  @teacher_c.courseid, :status => @teacher_c.status)
+      respond_to do |format|
+      format.html { redirect_to view_courses_path, notice: 'Course already dropped!' }
       end
     else
       respond_to do |format|
-        format.html { redirect_to view_courses_path, notice: 'Value does not exist' }
+        format.html { redirect_to view_courses_path, notice: 'Course not registered!' }
       end
     end
   end
