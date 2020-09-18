@@ -21,7 +21,7 @@
     <main role="main" class="inner cover">
         <h1 class="cover-heading">Welcome, <%= current_user.email %></h1>
     </main>
-    <% if Student.exists?(email: current_user.email) || current_user.category == 'Admin'
+    <% if Student.exists?(email: current_user.email) || current_user.category == 'admin'
          student_id = Student.find_by(email: params[:email])
     %>
       <br><br>
