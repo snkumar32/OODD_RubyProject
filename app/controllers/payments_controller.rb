@@ -14,7 +14,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1
   # GET /payments/1.json
   def show
-    @payment = Payment.find(params[:id])
+    @payment = Payment.find_by(params[:studentid])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @student }
@@ -32,6 +32,8 @@ class PaymentsController < ApplicationController
 
   # GET /payments/1/edit
   def edit
+    @payment = Payment.find_by(params[:studentid])
+
   end
 
   def use
@@ -56,6 +58,7 @@ class PaymentsController < ApplicationController
   # PATCH/PUT /payments/1
   # PATCH/PUT /payments/1.json
   def update
+    @payment = Payment.find_by(params[:studentid])
     respond_to do |format|
       if @payment.update(params.require(:payment).permit(:studentid, :cname, :cnumber, :expMonth, :expYr, :cvv))
         format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
@@ -70,9 +73,10 @@ class PaymentsController < ApplicationController
   # DELETE /payments/1
   # DELETE /payments/1.json
   def destroy
+    @payment = Payment.find_by(params[:studentid])
     @payment.destroy
     respond_to do |format|
-      format.html { redirect_to payments_url, notice: 'Payment was successfully destroyed.' }
+      format.html { redirect_to student_course_path(id: $userId), notice: 'Payment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
