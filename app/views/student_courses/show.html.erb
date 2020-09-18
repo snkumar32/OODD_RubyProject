@@ -45,15 +45,22 @@
         <td><%= course.price %></td>
         <td>  <% if !@teacher_course_dict[@course_id].empty? %>
           <%= form_for(@new_cart) do |form| %>
-          <%= form.hidden_field :courseid, value:"#{@course_id}" %><br />
-          <%= form.hidden_field :studentid, value:"#{@student_id}" %><br />
-       <%= form.select(:teacherid, @teacher_course_dict[@course_id]) %>
-              <br>
+          <%= form.hidden_field :courseid, value:"#{@course_id}" %>
+          <%= form.hidden_field :studentid, value:"#{@student_id}" %>
+              <% @t2 = []
+                 @teacher_course_dict[@course_id].each do |q|
+                   @t2 << {'id' => q, 'name' => Teacher.find_by(id: q).name}
+                 end
+                 @t2
+              %>
+       <%= form.select(:teacherid, options_for_select(@t2.collect { |s| [s["name"], s["id"]] } ) ) %>
+
+              <br />  <br />
      <div class="actions">
-      <%= form.submit "Add to cart" %>
+      <%= form.submit "Add To Cart" %>
       </div></td>
       <% end  %>
-      <td><%= button_to '-', {:controller => "student_courses", :action => "destroy", :studentid =>  @student_id, :courseid => @course_id} , :method=>:delete  %></td>
+      <td><%= button_to 'Remove from Cart', {:controller => "student_courses", :action => "destroy", :studentid =>  @student_id, :courseid => @course_id} , :method=>:delete  %></td>
       <% end  %>
       </tr>
 

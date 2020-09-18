@@ -33,7 +33,6 @@
 
     <tbody>
         <tr>
-
           <td><%= Teacher.find_by(id: @feedback_tid).name %></td>
           <td><%= Course.find_by(id: @feedback_cid).name %></td>
           <td><%=  @feedback_text %></td>
@@ -42,3 +41,4 @@
     </tbody>
   </table>
 </div>
+

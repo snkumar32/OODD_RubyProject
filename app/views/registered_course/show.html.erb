@@ -32,7 +32,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @teacher_course.each do |c|
+        <% @teacher_course_history.each do |c|
           @cname = Course.find_by(id: c.courseid).name %>
           <tr>
             <td><%= @cname %></td>
@@ -55,14 +55,14 @@
         </tr>
         </thead>
         <tbody>
-          <% if @teacher_course.nil? %>
-            <% @teacher_course.each do |c|
-              @cname = Course.find_by(id: c.courseid).name %>
-              <tr>
-                <td><%= @cname %></td>
-              </tr>
-            <% end %>
+        <% if @teacher_course.exists? %>
+          <% @teacher_course.each do |c|
+            @cname = Course.find_by(id: c.courseid).name %>
+            <tr>
+              <td><%= @cname %></td>
+            </tr>
           <% end %>
+        <% end %>
         </tbody>
       </table>
       <% if current_user.category == "Teacher" %>
