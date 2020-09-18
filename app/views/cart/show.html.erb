@@ -1,27 +1,47 @@
-<p id="notice"><%= notice %></p>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
+
 <h1>Cart Details</h1>
 
-<table class = "table table-striped">
-  <thead>
-  <tr>
-    <th>Course Name</th>
-    <th>Teacher Name</th>
-    <th>Course Price</th>
-  </thead>
+<div class = "container">
+  <h1>Cart Status</h1>
+  <br><br>
+  <table class = "table table-striped">
+    <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Teacher Name</th>
+      <th>Course Price</th>
+    </thead>
 
-  <tbody>
-  <tr>
-    <% @student_cart.each do |scart|
-    %>
-      <td><%= Course.find_by(id: scart.courseid).name %></td>
-      <td><%= Teacher.find_by(id: scart.teacherid).name %></td>
-      <td><%= Course.find_by(id: scart.courseid).price %></td>
-  </tr>
-<% end %>
-  </tbody>
-</table>
-<%= link_to 'Back', student_course_path %>
-<% if !@student_cart.empty? %>
-<%= button_to 'Checkout', {:controller => "course_registration", :action => "create", :studentid => @student_id_for_reg} , :method=>:post  %>
-<% end %>
-    <br>
+
+    <tbody>
+    <tr>
+      <% @student_cart.each do |scart| %>
+        <% sum = 0 %>
+        <td><%= Course.find_by(id: scart.courseid).name %></td>
+        <td><%= Teacher.find_by(id: scart.teacherid).name %></td>
+        <td><%= Course.find_by(id: scart.courseid).price %></td>
+    </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Back', student_course_path %><br><br>
+  <% if !@student_cart.empty? %>
+   <%= button_to 'Checkout', {:controller => "course_registration", :action => "create", :studentid => @student_id_for_reg} , :method=>:post, :class=> 'btn btn-primary'  %>
+  <% end %>
+</div>
