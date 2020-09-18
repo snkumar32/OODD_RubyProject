@@ -43,5 +43,11 @@
   <%= link_to 'Back', student_course_path %><br><br>
   <% if !@student_cart.empty? %>
    <%= button_to 'Checkout', {:controller => "course_registration", :action => "create", :studentid => @student_id_for_reg} , :method=>:post, :class=> 'btn btn-primary'  %>
-  <% end %>
+   <br>
+    <%= link_to "Proceed to payment", payments_path(studentid: params[:studentid]), :class => "btn btn-info" %>
+
+  <br>
+   <%= link_to 'Back', student_course_path %>
+
+<% end %>
 </div>

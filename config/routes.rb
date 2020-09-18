@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :payments
   resources :feedbacks
   get 'registered_course/show'
   devise_for :users, :controllers => {:registrations => "registrations"}
@@ -27,7 +28,11 @@ Rails.application.routes.draw do
   get 'feedbacks_path/:teacherid' => "feedbacks#display", as: :feedbacks_path
   get 'feedbacks_path/:teacherid/:courseid' => "feedbacks_path#index"
 
+  #get 'payments/:studentid' => "payments#display", as: :payments_path
+  #get 'payments/new/:studentid' =>
+
   put 'course_registration/:id' => 'course_registration#drop', as: :course_registration_drop
+
   resources :feedbacks
   resources :view_courses
   resources :cart
