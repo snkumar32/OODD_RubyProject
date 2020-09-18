@@ -3,7 +3,9 @@ class FeedbacksController < ApplicationController
   def index
     #@feedback = Feedback.new(params.permit(:teacherid, :courseid, :ftext))
     @feedback = Feedback.new(params.permit(:teacherid, :courseid, :ftext))
-    @feedback_text = Feedback.find_by(:teacherid => params[:teacherid], :courseid => params[:courseid]).ftext
+    if Feedback.exists?(:teacherid => params[:teacherid], :courseid => params[:courseid])
+      @feedback_text = Feedback.find_by(:teacherid => params[:teacherid], :courseid => params[:courseid]).ftext
+    end
     @feedback_tid = params[:teacherid]
     @feedback_cid = params[:courseid]
 

@@ -5,6 +5,7 @@ class RegisteredCourseController < ApplicationController
       @teacher_id = params[:id]
       @teacher_history = params[:history]
       @teacher_course = TeacherCourse.where("teacherid=? AND status=?", @teacher_id, "in-progress")
+      @teacher_course_history = TeacherCourse.where("teacherid=?", @teacher_id)
     else
       @student_id = params[:id]
       @student_history = params[:history]
