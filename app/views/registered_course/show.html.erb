@@ -39,7 +39,7 @@
         <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
       <% else %>
         <% @tname = Teacher.find_by(id: @teacher_id).email %>
-        <%= link_to 'Back',pages_landingPage_path(@tname) %>
+        <%= link_to 'Back',pages_landingPage_path(email: @tname) %>
       <% end %>
     <% else %>
       <table class = "table table-striped">
@@ -49,21 +49,21 @@
         </tr>
         </thead>
         <tbody>
-          <% if @teacher_course.nil? %>
-            <% @teacher_course.each do |c|
-              @cname = Course.find_by(id: c.courseid).name %>
-              <tr>
-                <td><%= @cname %></td>
-              </tr>
-            <% end %>
+        <% if @teacher_course.nil? %>
+          <% @teacher_course.each do |c|
+            @cname = Course.find_by(id: c.courseid).name %>
+            <tr>
+              <td><%= @cname %></td>
+            </tr>
           <% end %>
+        <% end %>
         </tbody>
       </table>
       <% if current_user.category == "Teacher" %>
         <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
       <% else %>
         <% @tname = Teacher.find_by(id: @teacher_id).email %>
-        <%= link_to 'Back',pages_landingPage_path(@tname) %>
+        <%= link_to 'Back',pages_landingPage_path(email: @tname) %>
       <% end %>
     <% end %>
   <% end %>
@@ -100,7 +100,7 @@
         <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
       <% else %>
         <% @sname = Student.find_by(id: @student_id).email %>
-        <%= link_to 'Back',pages_landingPage_path(@sname) %>
+        <%= link_to 'Back',pages_landingPage_path(email: @sname) %>
       <% end %>
     <% else %>
       <table class = "table table-striped">
@@ -136,7 +136,7 @@
         <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
       <% else %>
         <% @sname = Student.find_by(id: @student_id).email %>
-        <%= link_to 'Back',pages_landingPage_path(@sname) %>
+        <%= link_to 'Back',pages_landingPage_path(email: @sname) %>
       <% end %>
     <% end %>
   <% end %>
