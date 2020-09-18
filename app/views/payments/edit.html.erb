@@ -13,10 +13,11 @@
     </div>
   </div>
 </nav>
-<h1>Editing Student</h1>
-
-<%= render 'form' %>
 <div class = "container">
-  <%= link_to 'Show', @student %> |
-  <%= link_to 'Back', students_path %>
+  <h1>Editing Payment</h1>
+
+  <%= render 'form', payment: @payment %>
+
+  <%= link_to 'Show', @payment %> |
+  <%= link_to 'Back', payments_path %>
 </div>
