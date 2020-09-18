@@ -13,10 +13,28 @@
     </div>
   </div>
 </nav>
-<h1>Editing Student</h1>
+<p id="notice"><%= notice %></p>
 
-<%= render 'form' %>
 <div class = "container">
-  <%= link_to 'Show', @student %> |
-  <%= link_to 'Back', students_path %>
+  <p>
+    <b>Card Name:</b>
+    <%= @payment.cname %>
+  </p>
+  <p>
+    <b>Card Number:</b>
+    <%= @payment.cnumber %>
+  </p>
+  <p>
+    <b>Expiry Month:</b>
+    <%= @payment.expMonth %>
+  </p>
+  <p>
+    <b>Expiry Year:</b>
+    <%= @payment.expYr %>
+  </p>
+  <p>
+    <b>CVV:</b>
+    <%= @payment.cvv %>
+  </p>
+  <%= link_to 'Back', payments_path %>
 </div>

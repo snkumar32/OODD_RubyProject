@@ -1,6 +1,6 @@
 class CourseRegistrationController < ApplicationController
   def create
-    @student_cart = StudentCourse.where("studentid = ?", params[:studentid])
+    @student_cart = StudentCourse.where("studentid=?", params[:studentid])
     #@student_id_for_reg = params[:studentid]
     respond_to do |format|
     #@student_cart = StudentCourse.find_by(studentid: params[:studentid])
@@ -14,8 +14,10 @@ class CourseRegistrationController < ApplicationController
       @pvalue = Course.find_by(id: scart.courseid).price
       @typevalue  = "in-progress"
 
-      if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid, :status => "in-progress")
-        format.html { redirect_to student_course_path, notice: 'Already Registered for this course!!' }
+
+      if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
+        format.html { redirect_to pages_landingPage_path(email: current_user.email), notice: 'Value exists. No update.' }
+
       elsif CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid, :status => "dropped")
         @cr = CourseRegistration.find_by(:teacherid =>  @tid, :courseid =>  @cid, :studentid =>  params[:studentid], :status => "dropped")
         @cr.update_attributes(status: "in-progress")
@@ -24,7 +26,7 @@ class CourseRegistrationController < ApplicationController
         c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
         #@student_course_reg.save!
         StudentCourse.where(teacherid: @tid, courseid: @cid, studentid: params[:studentid]).destroy_all
-         format.html { redirect_to course_registration_path(:studentid => params[:studentid]), action: "show", notice: 'Placed Order.' }
+         format.html { redirect_to pages_landingPage_path(email: current_user.email), action: "show", notice: 'Placed Order.' }
         end
       end
     end

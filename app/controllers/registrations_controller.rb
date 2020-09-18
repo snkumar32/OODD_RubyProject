@@ -6,7 +6,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     if resource.category=='Student'
-
       "/students/new?email="+resource.email
     else
       "/teachers/new?email="+resource.email
