@@ -1,4 +1,5 @@
 class FeedbacksController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     #@feedback = Feedback.new(params.permit(:teacherid, :courseid, :ftext))

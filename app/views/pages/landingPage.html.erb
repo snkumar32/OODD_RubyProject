@@ -35,6 +35,8 @@
           <td><%= link_to "View Courses", student_course_path(id: student_id.id), :class => "btn btn-info" %></td>
           <td><%= link_to "Registered Courses", registered_course_show_path(id: student_id), :class => "btn btn-info" %></td>
           <td><%= link_to "History", registered_course_show_path(id: student_id.id, history: "true"), :class => "btn btn-info" %></td>
+          <% @sid = Student.find_by(email: params[:email]).id %>
+          <td><%= link_to 'Edit profile', edit_student_path(id: @sid, email: params[:email]),:method => :get, :class => 'navbar-link' %></td>
         </tbody>
       </thead>
     </table>

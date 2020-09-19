@@ -22,12 +22,12 @@
 
 <div class = "container">
   <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <% if current_user.category != "admin" %>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %><br />
+      <%= f.hidden_field :email, autocomplete: "email" %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -57,10 +57,14 @@
       <%= f.submit "Update" %>
     </div>
   <% end %>
+  <% end %>
 
   <h3>Cancel my account</h3>
-
-  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-  <%= link_to "Back", :back %>
+  <% if current_user.category != 'admin' %>
+    <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+  <% else %>
+    <td><%= link_to 'Cancel account', edit_user_registration_path ,data: { confirm: 'Cannot cancel your account!! Caught you :P' } %></td>
+  <% end %>
+  <br>
+  <br>
 </div>

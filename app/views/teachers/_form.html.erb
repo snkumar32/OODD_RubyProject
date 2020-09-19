@@ -27,16 +27,17 @@
 
         <ul>
           <% @teacher.errors.full_messages.each do |message| %>
-            <li><%= msg %></li>
+            <li><%= message %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
 
     <div class="field">
+
+      <%= form.hidden_field :email, value: params[:email] %><br />
       <%= form.label :name %><br />
       <%= form.text_field :name %><br /><br />
-      <%= form.hidden_field :email, value:params[:email] %><br />
       <%= form.label :address %><br />
       <%= form.text_field :address %><br /><br />
       <%= form.label :discipline %><br />

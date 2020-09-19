@@ -1,4 +1,6 @@
 class CourseRegistrationController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @student_cart = StudentCourse.where("studentid=?", params[:studentid])
     @student=Student.find(params[:studentid])
