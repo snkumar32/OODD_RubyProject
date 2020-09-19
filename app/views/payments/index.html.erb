@@ -31,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @payments.each do |payment| %>
+      <% payment = @payments %>
         <tr>
           <td><%= payment.cname %></td>
           <td><%= link_to 'Checkout', {:controller => "course_registration", :action => "create", :studentid => params[:studentid]} , :method=>:post, :class=> 'btn btn-primary', :style => "width:50%" %></td>
@@ -39,15 +39,14 @@
           <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
           <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
-      <% end %>
     </tbody>
   </table>
   <br>
   <% if Payment.exists? studentid: params[:studentid] %>
-    <%= link_to 'Back',student_course_path(id: $userId) %>
+    <%= link_to 'Back',student_course_path(id: $csid) %>
   <% else %>
     <%= link_to 'New Payment', new_payment_path(studentid: params[:studentid]) %><br>
-    <%= link_to 'Back',student_course_path(id: $userId) %>
+    <%= link_to 'Back',student_course_path(id: $csid) %>
   <% end %>
   <br>
 
