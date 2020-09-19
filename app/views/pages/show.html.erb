@@ -1,0 +1,38 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <% if current_user.category == "Student" %>
+        <%= link_to 'Home', pages_landingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+      <% elsif current_user.category == "Teacher" %>
+        <%= link_to 'Home', pages_teacherLandingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+      <% elsif current_user.category == "admin" %>
+        <%= link_to 'Home', '/admins/show', :class => 'navbar-brand' %>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+<div class = "container">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <!--<h3 class="masthead-brand">Cover</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#">Contact</a>-->
+      </div>
+    </header>
+    <main role="main" class="inner cover">
+      <h1 class="cover-heading">Welcome to Course Manager</h1>
+      <% if current_user %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success' %><span class="btn btn-lg btn-dark"></span>
+      <% else %>
+        <%= link_to "Sign Up", '/users/sign_up', :class => 'btn btn-success' %><span class="btn btn-lg btn-dark"></span>
+        <%= link_to "Login", '/users/sign_in', :class => 'btn btn-success' %><span class="btn btn-lg btn-dark"></span>
+      <% end %>
+    </main>
+  </div>
+</div>

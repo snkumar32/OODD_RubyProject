@@ -1,0 +1,55 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <% if current_user.category == "Student" %>
+        <%= link_to 'Home', pages_landingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+      <% elsif current_user.category == "Teacher" %>
+        <%= link_to 'Home', pages_teacherLandingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+      <% elsif current_user.category == "admin" %>
+        <%= link_to 'Home', '/admins/show', :class => 'navbar-brand' %>
+      <% end %>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
+<p id="notice"><%= notice %></p>
+<div class = "container">
+
+  <h1>Payments</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Card</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <% if Payment.where(studentid: params[:studentid]).exists? %>
+    <tbody>
+      <% payment = @payments %>
+        <tr>
+          <td><%= payment.cname %></td>
+          <td><%= link_to 'Checkout', {:controller => "course_registration", :action => "create", :studentid => params[:studentid]} , :method=>:post, :class=> 'btn btn-primary', :style => "width:50%" %></td>
+          <td><%= link_to 'Show',  {:controller => "payments", :action => "show", studentid: params[:studentid]} , :method=>:get %></td>
+          <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
+          <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    </tbody>
+      <%end %>
+  </table>
+  <br>
+  <% if Payment.exists? studentid: params[:studentid] %>
+    <%= link_to 'Back',student_course_path(id: $csid) %>
+  <% else %>
+    <%= link_to 'New Payment', new_payment_path(studentid: params[:studentid]) %><br>
+    <%= link_to 'Back',student_course_path(id: $csid) %>
+  <% end %>
+  <br>
+
+</div>

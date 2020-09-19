@@ -1,0 +1,45 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
+<div class = "container">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+      </div>
+    </header>
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">Welcome, <%= current_user.email %></h1>
+    </main>
+    <% if Student.exists?(email: current_user.email) || current_user.category == 'admin'
+         student_id = Student.find_by(email: params[:email])
+    %>
+      <br><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Register Courses</th>
+          <th>Registered Courses</th>
+          <th>Course History</th>
+        </tr>
+        <tbody>
+          <td><%= link_to "View Courses", student_course_path(id: student_id.id), :class => "btn btn-info" %></td>
+          <td><%= link_to "Registered Courses", registered_course_show_path(id: student_id), :class => "btn btn-info" %></td>
+          <td><%= link_to "History", registered_course_show_path(id: student_id.id, history: "true"), :class => "btn btn-info" %></td>
+          <% @sid = Student.find_by(email: params[:email]).id %>
+          <td><%= link_to 'Edit profile', edit_student_path(id: @sid, email: params[:email]),:method => :get, :class => 'navbar-link' %></td>
+        </tbody>
+      </thead>
+    </table>
+    <%end%>
+  </div>
+</div>

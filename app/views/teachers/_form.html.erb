@@ -1,0 +1,53 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Course Manager</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <% if current_user.category == "Student" %>
+        <%= link_to 'Home', pages_landingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+      <% elsif current_user.category == "Teacher" %>
+        <%= link_to 'Home', pages_teacherLandingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+      <% elsif current_user.category == "admin" %>
+        <%= link_to 'Home', '/admins/show', :class => 'navbar-brand' %>
+      <% end %>
+      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
+    </div>
+  </div>
+</nav>
+
+<div class = "container">
+  <h1>Teacher Details</h1>
+  <%= form_for(@teacher) do |form| %>
+    <% if @teacher.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+
+        <ul>
+          <% @teacher.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+
+      <%= form.hidden_field :email, value: params[:email] %><br />
+      <%= form.label :name %><br />
+      <%= form.text_field :name %><br /><br />
+      <%= form.label :address %><br />
+      <%= form.text_field :address %><br /><br />
+      <%= form.label :discipline %><br />
+      <%= form.text_field :discipline %><br /><br />
+      <%= form.label :phone_field %><br />
+      <%= form.phone_field :phone %><br /><br />
+    </div>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

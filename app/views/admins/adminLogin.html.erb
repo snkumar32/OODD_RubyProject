@@ -1,0 +1,47 @@
+<html>
+  <title>Welcome admin</title>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Course Manager</a>
+      </div>
+      <ul class="nav navbar-nav">
+      </ul>
+      <div class="nav navbar-nav navbar-right">
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success' %><span class="btn btn-lg btn-dark"></span>
+      </div>
+    </div>
+  </nav>
+  <body>
+    <div class = "container">
+      <h1 class="h3 mb-3 font-weight-normal">Welcome Admin</h1><br>
+      <% if current_user %>
+        <h1 class="h3 mb-3 font-weight-normal">You are Logged In, <%= current_user.username %></h1>
+      <%end%>
+    </div>
+    <div class="container">
+      <div class="page-header">
+        <h1>Operations you want to perform</h1>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Manage Teachers</th>
+          <th>Manage Students</th>
+          <th>Manage Courses</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= link_to "Manage", '/teachers', :class => "btn btn-lg btn-info btn-sm" %></td>
+            <td><%= link_to "Manage", '/students', :class => "btn btn-lg btn-info btn-sm" %></td>
+            <td><%= link_to "Manage", '/courses', :class => "btn btn-lg btn-info btn-sm" %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+

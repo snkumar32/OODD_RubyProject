@@ -1,0 +1,57 @@
+<html>
+  <head></head>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Course Manager</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <% if current_user.category == "Student" %>
+          <%= link_to 'Home', pages_landingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+        <% elsif current_user.category == "Teacher" %>
+          <%= link_to 'Home', pages_teacherLandingPage_path(email: current_user.email), :class => 'navbar-brand' %>
+        <% elsif current_user.category == "admin" %>
+          <%= link_to 'Home', '/admins/show', :class => 'navbar-brand' %>
+        <% end %>
+      </ul>
+      <div class="nav navbar-nav navbar-right">
+        <%= link_to "Logout", '/login', method: :get, :class => "btn btn-lg btn-dark" %><span class="glyphicon glyphicon-log-in"></span>
+      </div>
+    </div>
+  </nav>
+  <body>
+    <div class = "container">
+      <h1 class="h3 mb-3 font-weight-normal">Welcome Admin</h1><br>
+      <% if logged_in? %>
+        <h1 class="h3 mb-3 font-weight-normal">You are Logged In, <%= current_user.username %></h1>
+      <%end%>
+    </div>
+    <div class="container">
+      <div class="page-header">
+        <h1>Available Courses</h1>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Courses</th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= link_to "Register", '/pagelocation', :class => "btn btn-lg btn-info btn-sm" %></td>
+          <td></td>
+          <td><%= link_to "Manage", '/courses', :class => "btn btn-lg btn-info btn-sm" %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <% if Teacher.exists?(name: current_user.username)
+         teacher_id = Teacher.find_by(name: current_user.username)
+    %>
+    <%= link_to "View Courses", view_course_path(id: teacher_id.id), :class => "btn btn-lg btn-info" %><%end%>
+  </body>
+</html>
