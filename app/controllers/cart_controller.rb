@@ -1,4 +1,6 @@
 class CartController < ApplicationController
+  before_action :authenticate_user!
+
   def destroy
     #@student_cart = StudentCourse.find_by(studentid: params[:studentid])
     @student_cart = StudentCourse.where("studentid = ?", params[:studentid])

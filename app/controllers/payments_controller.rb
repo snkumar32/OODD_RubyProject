@@ -1,10 +1,10 @@
 class PaymentsController < ApplicationController
   #before_action :set_payment, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Payment.all
+    @payments = Payment.find_by(studentid: params[:studentid])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @payments}
@@ -76,7 +76,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.find_by(params[:studentid])
     @payment.destroy
     respond_to do |format|
-      format.html { redirect_to student_course_path(id: $userId), notice: 'Payment was successfully destroyed.' }
+      format.html { redirect_to student_course_path(id: $csid), notice: 'Payment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

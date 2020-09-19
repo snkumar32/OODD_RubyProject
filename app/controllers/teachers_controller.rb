@@ -1,6 +1,6 @@
 class TeachersController < ApplicationController
   #before_action :set_teacher, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user! || current_user.category == 'Admin'
+  before_action :authenticate_user!
 
   # GET /teachers
   # GET /teachers.json
@@ -65,7 +65,7 @@ class TeachersController < ApplicationController
   def update
     @teacher = Teacher.find(params[:id])
     respond_to do |format|
-      if @teacher.update(teacher_params)
+      if @teacher.update(params.require(:teacher).permit(:name, :email, :address, :discipline, :phone))
         format.html { redirect_to @teacher, notice: 'Teacher was successfully updated.' }
         format.json { render :show, status: :ok, location: @teacher }
       else

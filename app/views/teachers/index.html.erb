@@ -28,7 +28,7 @@
     <tr>
       <th>Name</th>
       <th>Discipline</th>
-      <th></th>
+      <th>View as needed</th>
       <th></th>
     </thead>
 
@@ -39,7 +39,6 @@
           <td><%= teacher.discipline %></td>
           <td><%= link_to 'View as Teacher', {:controller => "pages", :action => "teacherLandingPage", :email => teacher.email} , :method=>:get  %></td>
           <td><%= link_to 'Show', teacher %></td>
-          <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
           <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
@@ -47,5 +46,5 @@
   </table>
 
   <br>
-  <%= link_to 'New Teacher', new_teacher_path %>
+  <%= link_to "New Teacher", destroy_user_session_path, method: :delete,  data: { confirm: 'You will be logged out to signup...Create a new Teacher?' }  %><span class="btn btn-lg btn-dark"></span>
 </div>
