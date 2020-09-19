@@ -42,4 +42,9 @@
 </table>
 
 <br>
-<%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
+<% if current_user.category == "Teacher" %>
+  <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
+<% else %>
+  <% @tname = Teacher.find_by(id: params[:teacherid]).email %>
+  <%= link_to 'Back',pages_teacherLandingPage_path(email: @tname) %>
+<% end %>

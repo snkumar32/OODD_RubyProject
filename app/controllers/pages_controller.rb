@@ -7,5 +7,6 @@ class PagesController < ApplicationController
   end
   def teacherLandingPage
     $userId = User.find_by(email: params[:email]).id
+    #$ctid = Teacher.find_by(email: params[:email]).id
   end
 end
