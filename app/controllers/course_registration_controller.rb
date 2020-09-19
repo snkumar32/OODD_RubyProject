@@ -3,7 +3,7 @@ class CourseRegistrationController < ApplicationController
 
   def create
     @student_cart = StudentCourse.where("studentid=?", params[:studentid])
-    @student=Student.find(params[:studentid])
+    #@student=Student.find(params[:studentid])
     #@student_id_for_reg = params[:studentid]
     respond_to do |format|
     #@student_cart = StudentCourse.find_by(studentid: params[:studentid])
@@ -28,8 +28,8 @@ class CourseRegistrationController < ApplicationController
       else
         c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
         #@student_course_reg.save!
-        message = UserMailer.with(student: @student).welcome_email
-        message.deliver_now
+        #message = UserMailer.with(student: @student).welcome_email
+        #message.deliver_now
         StudentCourse.where(teacherid: @tid, courseid: @cid, studentid: params[:studentid]).destroy_all
          format.html { redirect_to student_course_path(id: params[:studentid]), action: "show", notice: 'Placed Order.' }
         end
