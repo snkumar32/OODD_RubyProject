@@ -59,7 +59,3 @@ Palash Gupta (pgupta25@ncsu.edu)
 
 Sneha Kumar (skumar32@ncsu.edu)
 
-
-#### additional note : 
-Please note that the e-mail service is working when we deploy it on localhost but not on aws deployment. 
-Below is the mentioned URL for the mailer functionality : \app\controller\course_registration_controller.rb . We are actively working to solve the e-mail issue on AWS.
