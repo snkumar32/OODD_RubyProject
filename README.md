@@ -1,7 +1,7 @@
 # README
 
 In order to access the application please open a browser and type the following in the address bar : http://3.131.93.190:3000/
-
+Note: Please note you can find some of the existing values for the tables created in the seeds.rb file.
 
 #### Sign Up procedure: 
 
