@@ -6,13 +6,13 @@ In order to access the application please open a browser and type the following 
 #### Sign Up procedure: 
 
 * The default page when you access the application is the 'Login' page.
-* click on 'sign up' and it will redirect you to the sign up page
+* Click on 'sign up' and it will redirect you to the sign up page.
 Enter your details. 
-* Make sure you use a valid-email ID for the sign up process
+* Make sure you use a valid-email ID (to get email updates for course updates via mail) for the sign up process
 
 #### Sign In procedure:
 * Access the following IP address : http://3.131.93.190:3000/
-* enter your user-email and password and click on log in
+* Enter your user-email and password to log in and click on log in button
 
 
 #### teacher : signing up for a course 
