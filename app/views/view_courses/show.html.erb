@@ -69,13 +69,12 @@
     <% end %>
     </tbody>
   </table>
+    <% if current_user.category == "Teacher" %>
+      <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
+    <% else %>
+      <% @tname = Teacher.find_by(id: @teacher_id).email %>
+      <%= link_to 'Back',pages_teacherLandingPage_path(email: @tname) %>
+    <% end %>
 </div>
-  <% end %>
-
-<% if current_user.category == "Teacher" %>
-  <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
-<% else %>
-  <% @tname = Teacher.find_by(id: @teacher_id).email %>
-  <%= link_to 'Back',pages_teacherLandingPage_path(email: @tname) %>
 <% end %>
 
