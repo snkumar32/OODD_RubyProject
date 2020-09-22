@@ -97,5 +97,22 @@ class CoursesController < ApplicationController
     end
   end
 
+  def purchase_history_student
+    if current_user.category == "admin"
+      @course = Course.find(params[:id])
+      if CourseRegistration.exists?(:courseid => @course)
+        @cr = CourseRegistration.where("courseid = ?", params[:id])
+        respond_to do |format|
+          format.html
+          end
+      else
+        respond_to do |format|
+          format.html { redirect_to courses_url, notice: 'Course - No Purchase history' }
+        end
+      end
+    else
+
+    end
+    end
 
 end

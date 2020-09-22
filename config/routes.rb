@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   get 'feedbacks_path/:teacherid/:courseid' => "feedbacks_path#index"
   get 'edit_teacher_path/:id/:email' => 'teachers#edit', as: :edit_teacher_path
   get 'edit_student_path/:id/:email' => 'students#edit', as: :edit_student_path
+  get 'courses/purchase_history_student/:id' => "courses#purchase_history_student", as: :purchase_history_student
+
+
 
   #get 'payments/:studentid' => "payments#display", as: :payments_path
   get 'payments/:studentid' => "payments#show"
