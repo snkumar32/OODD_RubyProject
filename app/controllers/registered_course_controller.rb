@@ -1,5 +1,17 @@
 class RegisteredCourseController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_user
+  def check_user
+    if current_user.category == "Teacher"
+      if User.find_by(id: $userId).email != Teacher.find_by(id: params[:id]).email
+        redirect_to pages_teacherLandingPage_path(email: current_user.email), notice => 'Not authorized.'
+      end
+    elsif current_user.category == "Student"
+      if User.find_by(id: $userId).email != Student.find_by(id: params[:id]).email
+        redirect_to pages_landingPage_path(email: current_user.email), notice => 'Not authorized.'
+      end
+    end
+  end
   def show
       @category_check = User.find_by(id: $userId).category
       if current_user.category == "Teacher" || (current_user.category == "admin" && @category_check == "Teacher")

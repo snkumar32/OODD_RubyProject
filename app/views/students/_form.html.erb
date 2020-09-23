@@ -29,7 +29,7 @@
 
         <ul>
           <% @student.errors.full_messages.each do |message| %>
-            <li><%= msg %></li>
+            <li><%= message %></li>
           <% end %>
         </ul>
       </div>
@@ -37,7 +37,7 @@
     <div class="field">
       <%= form.label :name %><br />
       <%= form.text_field :name %><br /><br />
-      <%= form.hidden_field :email, value:params[:email] %><br />
+      <%= form.hidden_field :email, value:$student_signup %><br />
       <%= form.label :address %><br />
       <%= form.text_field :address %><br /><br />
       <%= form.label :major %><br />
