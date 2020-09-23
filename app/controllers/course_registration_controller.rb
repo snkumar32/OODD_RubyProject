@@ -18,13 +18,12 @@ class CourseRegistrationController < ApplicationController
       @typevalue  = "in-progress"
 
 
-      if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
-        format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Value exists. No update.' }
-
-      elsif CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid, :status => "dropped")
+      if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid, :status => "dropped")
         @cr = CourseRegistration.find_by(:teacherid =>  @tid, :courseid =>  @cid, :studentid =>  params[:studentid], :status => "dropped")
         @cr.update_attributes(status: "in-progress")
         format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Updated Course Status to Registered!!' }
+      elsif CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
+        format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Value exists. No update.' }
       else
         c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
         #@student_course_reg.save!
