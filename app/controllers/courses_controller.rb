@@ -2,14 +2,11 @@ class CoursesController < ApplicationController
   #before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   before_action :check_user
-
   def check_user
-    if current_user.category != 'admin'
-      if current_user.category == "Student"
-        redirect_to(pages_landingPage_path(email: current_user.email))
-      elsif current_user.category == "Teacher"
+    if current_user.category == "Teacher"
         redirect_to pages_teacherLandingPage_path(email: current_user.email), notice => 'Not authorized.'
-      end
+    elsif current_user.category == "Student"
+        redirect_to pages_landingPage_path(email: current_user.email), notice => 'Not authorized.'
     end
   end
 

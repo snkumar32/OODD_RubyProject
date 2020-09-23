@@ -1,5 +1,14 @@
 class FeedbacksController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_user, only: [:display]
+
+  def check_user
+    if current_user.category != "admin" && current_user.category == 'Teacher'
+      if User.find_by(id: $userId).email != Teacher.find_by(id: params[:teacherid]).email
+        redirect_to pages_teacherLandingPage_path(email: current_user.email), notice => 'Not authorized.'
+      end
+    end
+  end
 
   def index
     #@feedback = Feedback.new(params.permit(:teacherid, :courseid, :ftext))
