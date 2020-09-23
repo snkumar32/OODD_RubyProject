@@ -13,4 +13,8 @@ class UserMailer < ApplicationMailer
 
     mail(to: @student.email, subject: "IMP : Course Registration Update")
   end
+  def student_signedup
+    @stud = params[:email]
+    mail(to: @stud, subject: "Registration successful")
+  end
 end
