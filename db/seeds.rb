@@ -5,8 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-#user = User.create!  :email => 'admin@admin.com', :password => 'admin123', :password_confirmation => 'admin123', :category => 'admin'
-"""
+user = User.create!  :email => 'admin@admin.com', :password => 'admin123', :password_confirmation => 'admin123', :category => 'admin'
 s1 = User.create!  :email => 'skumar32@ncsu.edu', :password => 'sneha123', :password_confirmation => 'sneha123', :category => 'Student'
 s2 = User.create!  :email => 'pgupta25@ncsu.edu', :password => 'palash123', :password_confirmation => 'palash123', :category => 'Student'
 s2 = User.create!  :email => 'agautam6@ncsu.edu', :password => 'amol123', :password_confirmation => 'amol123', :category => 'Student'
@@ -29,7 +28,6 @@ c4 = Course.create! :name => 'Digital Circuit Design', :number => '410', :discip
 c5 = Course.create! :name => 'Digital Signal Processing', :number => '415', :discipline => 'ECE', :area => 'Signal Processing', :price => '130'
 c6 = Course.create! :name => 'Computer Networks', :number => '670', :discipline => 'CN', :area => 'Networks', :price => '100'
 c7 = Course.create! :name => 'Internet Protocol', :number => '671', :discipline => 'CN', :area => 'Networks', :price => '130'
-"""
 
 t11 = Teacher.create! :name => 'Teacher1', :email => 'teacher1@ncsu.edu', :address => 'Raleigh', :phone => '38765678', :discipline => 'CSC'
 t21 = Teacher.create! :name => 'Teacher2', :email => 'teacher2@ncsu.edu', :address => 'Raleigh', :phone => '38565678', :discipline => 'CSC'
