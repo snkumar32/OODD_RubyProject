@@ -4,7 +4,7 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  <h1>You have been successfully registered to the following courses:</h1>
+  <h1>A new student enrolled under you.</h1>
 <br>
 <table>
   <thead>
@@ -14,11 +14,11 @@
   </tr>
   </thead>
   <tbody>
-    <% @course_name_array.each do |cart| %>
-      <tr>
-        <td><%= cart[0].name %></td>
-      </tr>
-    <% end %>
+  <% @course_name_array.each do |cart| %>
+    <tr>
+      <td><%= cart[0].name %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 <br>
