@@ -4,5 +4,4 @@ class Course < ApplicationRecord
   validates :area, :presence => true
   validates :discipline, :presence => true
   validates :price, :presence => true
-
 end

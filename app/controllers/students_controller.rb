@@ -92,6 +92,9 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @user_value = User.find_by(email: @student.email)
     @student.destroy
+    CourseRegistration.where(:studentid => params[:id]).destroy_all
+    StudentCourse.where(:studentid => params[:id]).destroy_all
+    Payment.where(:studentid => params[:id]).destroy_all
     @user_value.destroy
     respond_to do |format|
       format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
