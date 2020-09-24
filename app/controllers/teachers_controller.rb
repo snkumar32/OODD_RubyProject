@@ -92,6 +92,11 @@ class TeachersController < ApplicationController
     @teacher = Teacher.find(params[:id])
     @user_value = User.find_by(email: @teacher.email)
     @teacher.destroy
+    #TeacherCourse.delete_all(teacherid: params[:id])
+    TeacherCourse.where(teacherid: params[:id]).destroy_all
+    CourseRegistration.where(:teacherid => params[:id]).destroy_all
+    Feedback.where(:teacherid => params[:id]).destroy_all
+    StudentCourse.where(:teacherid => params[:id]).destroy_all
     @user_value.destroy
     respond_to do |format|
       format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
