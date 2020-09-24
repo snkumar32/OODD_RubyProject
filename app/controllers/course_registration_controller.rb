@@ -14,6 +14,11 @@ class CourseRegistrationController < ApplicationController
       if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid, :status => "dropped")
         @cr = CourseRegistration.find_by(:teacherid =>  @tid, :courseid =>  @cid, :studentid =>  params[:studentid], :status => "dropped")
         @cr.update_attributes(status: "in-progress")
+        @tname = Teacher.find_by(id: @tid)
+        message = UserMailer.with(student: @student, teacher: @tname).welcome_email
+        message.deliver_now
+        message = UserMailer.with(student: @student, teacher: @tname).teacher_notify
+        message.deliver_now
         format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Updated Course Status to Registered!!' }
       elsif CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
         format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Value exists. No update.' }
