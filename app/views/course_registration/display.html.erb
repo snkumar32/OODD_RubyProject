@@ -18,33 +18,34 @@
     </div>
   </div>
 </nav>
+<div class = "container">
+  <h1>Listing All Students</h1>
 
-<h1>Listing All Students</h1>
+  <table class = "table table-striped">
+    <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Student Name</th>
+      <th>Student-Course Status</th>
+    </thead>
 
-<table class = "table table-striped">
-  <thead>
-  <tr>
-    <th>Course Name</th>
-    <th>Student Name</th>
-    <th>Student-Course Status</th>
-  </thead>
+    <tbody>
+    <tr>
+      <% @student_list.each do |slist|
+      %>
+        <td><%= Course.find_by(id: slist.courseid).name %></td>
+        <td><%= Student.find_by(id: slist.studentid).name %></td>
+        <td><%= slist.status %></td>
+        </tr>
+      <% end %>
+      </tbody>
+  </table>
 
-  <tbody>
-  <tr>
-    <% @student_list.each do |slist|
-    %>
-      <td><%= Course.find_by(id: slist.courseid).name %></td>
-      <td><%= Student.find_by(id: slist.studentid).name %></td>
-      <td><%= slist.status %></td>
-      </tr>
-    <% end %>
-    </tbody>
-</table>
-
-<br>
-<% if current_user.category == "Teacher" %>
-  <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
-<% else %>
-  <% @tname = Teacher.find_by(id: params[:teacherid]).email %>
-  <%= link_to 'Back',pages_teacherLandingPage_path(email: @tname) %>
-<% end %>
+  <br>
+  <% if current_user.category == "Teacher" %>
+    <%= link_to 'Back', pages_teacherLandingPage_path(email: current_user.email) %>
+  <% else %>
+    <% @tname = Teacher.find_by(id: params[:teacherid]).email %>
+    <%= link_to 'Back',pages_teacherLandingPage_path(email: @tname) %>
+  <% end %>
+</div>

@@ -55,14 +55,14 @@ end
     @feedback = Feedback.new(params.require(:feedback).permit(:teacherid, :courseid, :ftext))
     student_id = Student.find_by(email: current_user.email)
     respond_to do |format|
-        if @feedback.save
-          format.html { redirect_to registered_course_show_path(id: student_id), notice: 'Feedback was successfully created.' }
-        else
-          format.html { render :new }
-          format.json { render json: @feedback.errors, status: :unprocessable_entity }
+      if @feedback.save
+        format.html { redirect_to registered_course_show_path(id: student_id), notice: 'Feedback was successfully created.' }
+      else
+        format.html { render :new }
+        format.json { render json: @feedback.errors, status: :unprocessable_entity }
       end
     end
-    end
+  end
 
 
   def update

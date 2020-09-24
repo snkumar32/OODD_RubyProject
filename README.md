@@ -41,13 +41,20 @@ Enter your details.
 #### Admin : signing in as admin
 * Admin credentials are ->` e-mail : admin@admin.com , password : admin123`  
 * After the admin has logged in , the admin can perform the following operations 
-* 1 . Admin can do CRUD operation for students , teachers and courses
-* 2 .  Admin can assume roles for any of the user categories by clicking on the relevant options available on the menu
-Below is the shown example as to how an admin can assume the role of the student and perform operations on his behalf
+* Admin can do CRUD operations for students, teachers and courses.
+* Admin can assume roles for any of the user categories by clicking on the relevant options available on the menu.
+* Below is the shown example as to how an admin can assume the role of the student and perform operations on his behalf.
+
 ![image](https://user-images.githubusercontent.com/7301586/93657919-bb745d00-fa04-11ea-9147-89772aa76ace.png)
 
 * The same can be done for teachers as well.
+* When an admin is required to create a new student and teacher, he is logged out and redirected to the sign up page. There were some issues when we tried having this functionality combined on the admin page itself. 
 
+#### Corner case handling
+* All the routes present in the application are checked for authorization. For example, a student with id 1 will never be able to view the profile page of student 2.
+* An email is sent when a user signs up with the application. Emails are also sent when a student signs up for a class with a teacher.
+* When a user tries to delete an admin account, an alert pops up to prevent such an action.
+* Teacher should be signed up for one of the courses for which the student is looking to register the course.
 
 For any feedback, please contact the below mentioned folks : 
 

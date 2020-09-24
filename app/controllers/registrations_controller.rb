@@ -7,6 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     @usernew = resource.email
     message = UserMailer.with(email: resource.email).student_signedup
     message.deliver_now
+    $signup_email = resource.email
     if resource.category == 'Student'
       "/students/new?email="+resource.email
     else

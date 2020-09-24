@@ -39,7 +39,7 @@
         <td><%= link_to "View Feedback",  :controller => :feedbacks, :action => :display, :teacherid => teacher_id.id %> </td>
         <td><%= link_to "Registered Students", :controller => :course_registration, :action => :display, :teacherid => teacher_id.id %></td>
         <% @sid = Teacher.find_by(email: params[:email]).id %>
-        <td><%= link_to 'Edit profile', edit_teacher_path(id: @sid, email: params[:email]),:method => :get, :class => 'navbar-link' %></td>
+        <td><%= link_to 'Edit teacher details', edit_teacher_path(id: @sid, email: params[:email]),:method => :get, :class => 'navbar-link' %></td>
         </tbody>
         </thead>
       </table>
