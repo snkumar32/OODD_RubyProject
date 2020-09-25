@@ -3,7 +3,14 @@
 Welcome to Course Manager, your guide to registering the right courses you need. In order to access the application please open a browser and type the following in the address bar : http://3.131.93.190:3000/
 Note: Please note you can find some of the existing values for the tables created in the seeds.rb file.
 
-* Admin credentials are ->` e-mail : admin@admin.com , password : admin123`  
+* Admin credentials are ->` e-mail : admin@admin.com , password : admin123` 
+
+If you are unable to sign up as a student, please use the following credentials: 
+* Student credentials are ->` e-mail : skumar32@ncsu.edu , password : 1234567`  
+
+If you are unable to sign up as a teacher, please use the following credentials: 
+* Student credentials are ->` e-mail : testcase1230@gmail.com , password : 123456`  
+
 
 #### Sign Up procedure: 
 
