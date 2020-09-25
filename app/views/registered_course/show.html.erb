@@ -142,8 +142,10 @@
       <% if current_user.category == "Student" %>
         <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
       <% else %>
-        <% @sname = Student.find_by(id: $csid).email %>
-        <%= link_to 'Back',pages_landingPage_path(email: @sname) %>
+        <% if Student.where(id: @student_id).exists? %>
+          <% @sname = Student.find_by(id: @student_id).email %>
+          <%= link_to 'Back',pages_landingPage_path(email: @sname) %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
