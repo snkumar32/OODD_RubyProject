@@ -1,7 +1,18 @@
 class TeachersController < ApplicationController
   #before_action :set_teacher, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-
+  before_action :check_user, only: [:index]
+  def check_user
+    if current_user.category == "Teacher"
+      respond_to do |format|
+        format.html { redirect_to pages_teacherLandingPage_path(email: current_user.email), notice => 'Not authorized'}
+      end
+    elsif current_user.category == "Student"
+      respond_to do |format|
+        format.html { redirect_to pages_landingPage_path(email: current_user.email), notice: 'Not authorized'}
+      end
+    end
+  end
   # GET /teachers
   # GET /teachers.json
   def teacher_params
@@ -81,6 +92,11 @@ class TeachersController < ApplicationController
     @teacher = Teacher.find(params[:id])
     @user_value = User.find_by(email: @teacher.email)
     @teacher.destroy
+    #TeacherCourse.delete_all(teacherid: params[:id])
+    TeacherCourse.where(teacherid: params[:id]).destroy_all
+    CourseRegistration.where(:teacherid => params[:id]).destroy_all
+    Feedback.where(:teacherid => params[:id]).destroy_all
+    StudentCourse.where(:teacherid => params[:id]).destroy_all
     @user_value.destroy
     respond_to do |format|
       format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }

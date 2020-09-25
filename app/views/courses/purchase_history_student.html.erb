@@ -11,44 +11,34 @@
       <% elsif current_user.category == "admin" %>
         <%= link_to 'Home', '/admins/show', :class => 'navbar-brand' %>
       <% end %>
-      <li class = "active"><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> </li>
-
     </ul>
     <div class="nav navbar-nav navbar-right">
       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-success',style: "margin-top:10px" %><span class="btn btn-lg btn-dark"></span>
     </div>
   </div>
 </nav>
-
 <div class = "container">
-  <h1>Cart Status</h1>
-  <br><br>
-  <table class = "table table-striped">
+  <table class="table table-striped">
     <thead>
     <tr>
       <th>Course Name</th>
-      <th>Teacher Name</th>
+      <th>Course Number</th>
       <th>Course Price</th>
+      <th>Student Name</th>
+      <th>Teacher Name</th>
     </thead>
 
-
     <tbody>
-    <tr>
-      <% @student_cart.each do |scart| %>
-        <% sum = 0 %>
-        <td><%= Course.find_by(id: scart.courseid).name %></td>
-        <td><%= Teacher.find_by(id: scart.teacherid).name %></td>
-        <td><%= Course.find_by(id: scart.courseid).price %></td>
-    </tr>
-      <% end %>
+    <% @cr.each do |s| %>
+      <tr>
+        <td><%= Course.find_by(:id => s.courseid).name %></td>
+        <td><%= Course.find_by(:id => s.courseid).number %></td>
+        <td><%= Course.find_by(:id => s.courseid).price %></td>
+        <td><%= Student.find_by(:id => s.studentid).name %></td>
+        <td><%= Teacher.find_by(:id => s.teacherid).name %></td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
 
-  <% if !@student_cart.empty? %>
-    <%= link_to "Proceed to payment", payments_path(studentid: params[:studentid]), :class => "btn btn-info" %>
-  <br>
-  <br>
-    <%= link_to 'Back', student_course_path(id: params[:studentid]) %><br><br>
-
-<% end %>
 </div>

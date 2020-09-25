@@ -126,12 +126,13 @@
               @faculty = cid.teacherid
               @cname = Course.find_by(id: cid.courseid).name
               @fname = Teacher.find_by(id: cid.teacherid).name
+              sfeedback_id = params[:id]
         %>
             <tr>
               <td><%= @cname %></td>
               <td><%= @fname %></td>
-              <td><%= link_to 'Give feedback', new_feedback_path( :teacherid => cid.teacherid, :courseid => cid.courseid), :class => "btn btn-info" %> </td>
-              <td> <%= link_to "View feedback", feedbacks_path(:teacherid => cid.teacherid, :courseid => cid.courseid), :class => "btn btn-info" %> </td>
+              <td><%= link_to 'Give feedback', new_feedback_path( :teacherid => cid.teacherid, :courseid => cid.courseid, :studentid => sfeedback_id), :class => "btn btn-info" %> </td>
+              <td> <%= link_to "View feedback", feedbacks_path(:teacherid => cid.teacherid, :courseid => cid.courseid,  :studentid => sfeedback_id), :class => "btn btn-info" %> </td>
               <td><%= link_to 'Drop', course_registration_drop_path(:id => params[:id], :studentid => @student_id, :courseid => cid.courseid, :teacherid => cid.teacherid, :status => "dropped") , method: :put, :class => "btn btn-info" %></td>
             </tr>
           <% end %>
@@ -141,8 +142,10 @@
       <% if current_user.category == "Student" %>
         <%= link_to 'Back', pages_landingPage_path(email: current_user.email) %>
       <% else %>
-        <% @sname = Student.find_by(id: $csid).email %>
-        <%= link_to 'Back',pages_landingPage_path(email: @sname) %>
+        <% if Student.where(id: @student_id).exists? %>
+          <% @sname = Student.find_by(id: @student_id).email %>
+          <%= link_to 'Back',pages_landingPage_path(email: @sname) %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

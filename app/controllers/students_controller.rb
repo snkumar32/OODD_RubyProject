@@ -1,7 +1,17 @@
 class StudentsController < ApplicationController
-  #before_action :set_student, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-
+  before_action :check_user, only: [:index]
+  def check_user
+    if current_user.category == "Teacher"
+      respond_to do |format|
+        format.html { redirect_to pages_teacherLandingPage_path(email: current_user.email), notice => 'Not authorized'}
+      end
+    elsif current_user.category == "Student"
+      respond_to do |format|
+        format.html { redirect_to pages_landingPage_path(email: current_user.email), notice: 'Not authorized'}
+      end
+    end
+  end
   # GET /students
   # GET /students.json
   def student_params
@@ -33,6 +43,7 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
+    $student_signup = params[:email]
     @student = Student.new
     respond_to do |format|
       format.html # new.html.erb
@@ -81,6 +92,9 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @user_value = User.find_by(email: @student.email)
     @student.destroy
+    CourseRegistration.where(:studentid => params[:id]).destroy_all
+    StudentCourse.where(:studentid => params[:id]).destroy_all
+    Payment.where(:studentid => params[:id]).destroy_all
     @user_value.destroy
     respond_to do |format|
       format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }

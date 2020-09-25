@@ -3,35 +3,35 @@ class CourseRegistrationController < ApplicationController
 
   def create
     @student_cart = StudentCourse.where("studentid=?", params[:studentid])
-    @student=Student.find(params[:studentid])
-    #@student_id_for_reg = params[:studentid]
+    @student = Student.find(params[:studentid])
     respond_to do |format|
-    #@student_cart = StudentCourse.find_by(studentid: params[:studentid])
     @student_cart.each do |scart|
-      #params[:teacherid] = scart.teacherid
-      #params[:courseid] = scart.courseid
-      #params[:price] = Course.find_by(id: scart.courseid).price
-      #params[:type] = "in-progress"
       @tid = scart.teacherid
       @cid = scart.courseid
       @pvalue = Course.find_by(id: scart.courseid).price
       @typevalue  = "in-progress"
 
-
-      if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
-        format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Value exists. No update.' }
-
-      elsif CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid, :status => "dropped")
+      if CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid, :status => "dropped")
         @cr = CourseRegistration.find_by(:teacherid =>  @tid, :courseid =>  @cid, :studentid =>  params[:studentid], :status => "dropped")
         @cr.update_attributes(status: "in-progress")
+        @tname = Teacher.find_by(id: @tid)
+        message = UserMailer.with(student: @student, teacher: @tname).welcome_email
+        message.deliver_now
+        message = UserMailer.with(student: @student, teacher: @tname).teacher_notify
+        message.deliver_now
         format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Updated Course Status to Registered!!' }
+      elsif CourseRegistration.exists?(:courseid => @cid, :studentid => params[:studentid], :teacherid => @tid)
+        format.html { redirect_to student_course_path(id: params[:studentid]), notice: 'Value exists. No update.' }
       else
         c = CourseRegistration.create :teacherid => @tid, :courseid => @cid, :studentid => params[:studentid], :price => @pvalue, :status => @typevalue
         #@student_course_reg.save!
-        message = UserMailer.with(student: @student).welcome_email
+        @tname = Teacher.find_by(id: @tid)
+        message = UserMailer.with(student: @student, teacher: @tname).welcome_email
+        message.deliver_now
+        message = UserMailer.with(student: @student, teacher: @tname).teacher_notify
         message.deliver_now
         StudentCourse.where(teacherid: @tid, courseid: @cid, studentid: params[:studentid]).destroy_all
-         format.html { redirect_to student_course_path(id: params[:studentid]), action: "show", notice: 'Placed Order.' }
+        format.html { redirect_to student_course_path(id: params[:studentid]), action: "show", notice: 'Placed Order.' }
         end
       end
     end

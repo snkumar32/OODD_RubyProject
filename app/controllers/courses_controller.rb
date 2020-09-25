@@ -1,6 +1,14 @@
 class CoursesController < ApplicationController
   #before_action :set_course, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :check_user
+  def check_user
+    if current_user.category == "Teacher"
+        redirect_to pages_teacherLandingPage_path(email: current_user.email), notice => 'Not authorized.'
+    elsif current_user.category == "Student"
+        redirect_to pages_landingPage_path(email: current_user.email), notice => 'Not authorized.'
+    end
+  end
 
   def courses_params
     params.require(:course).permit(:name, :number, :discipline, :area, :price)
@@ -79,6 +87,9 @@ class CoursesController < ApplicationController
   # DELETE /courses/1.json
   def destroy
     @course = Course.find(params[:id])
+    TeacherCourse.where(courseid: params[:id]).destroy_all
+    CourseRegistration.where(courseid: params[:id]).destroy_all
+    StudentCourse.where(courseid: params[:id]).destroy_all
     @course.destroy
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
@@ -86,5 +97,22 @@ class CoursesController < ApplicationController
     end
   end
 
+  def purchase_history_student
+    if current_user.category == "admin"
+      @course = Course.find(params[:id])
+      if CourseRegistration.exists?(:courseid => @course)
+        @cr = CourseRegistration.where("courseid = ?", params[:id])
+        respond_to do |format|
+          format.html
+          end
+      else
+        respond_to do |format|
+          format.html { redirect_to courses_url, notice: 'Course - No Purchase history' }
+        end
+      end
+    else
+
+    end
+    end
 
 end
