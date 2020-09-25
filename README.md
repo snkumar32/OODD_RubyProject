@@ -3,6 +3,8 @@
 Welcome to Course Manager, your guide to registering the right courses you need. In order to access the application please open a browser and type the following in the address bar : http://3.131.93.190:3000/
 Note: Please note you can find some of the existing values for the tables created in the seeds.rb file.
 
+* Admin credentials are ->` e-mail : admin@admin.com , password : admin123`  
+
 #### Sign Up procedure: 
 
 * The default page when you access the application is the 'Login' page.
@@ -45,7 +47,6 @@ Enter your details.
 
 
 #### Admin : signing in as admin
-* Admin credentials are ->` e-mail : admin@admin.com , password : admin123`  
 * After the admin has logged in , the admin can perform the following operations 
 * Admin can do CRUD operations for students, teachers and courses.
 * Admin can assume roles for any of the user categories by clicking on the relevant options available on the menu.
